@@ -1,0 +1,56 @@
+*{
+    font-family: 'Poppins', sans-serif;
+    font-color:white;
+    
+}
+.h-font{
+    font-family: 'Merienda', cursive;
+    color: white;
+}
+      /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  body{
+    background-color: black;
+    color: white;
+  }
+
+  .h-font{
+    font-family: 'Merienda', cursive;
+    color: white;
+}
+      /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  body{
+    background-color: black;
+    color: white;
+    justify-content: center;
+  }
+
+  .my-style {
+    position: fixed !important; /* Positions the alert relative to the document */
+    top: 50px;  /* Distance from the top of the page */
+    right: 0px; /* Distance from the right side of the page */
+    width: 300px; /* Fixed width of the alert box */
+    background-color: blueviolet !important;
+  }
+  
