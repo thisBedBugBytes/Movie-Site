@@ -3,6 +3,7 @@
 <?php
     require('inc/essentials.php');
     require('inc/db_config.php');
+    require('inc/links.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,7 @@
     <title>Admin Login Panel</title>
 
 <!--connects to links.php for frontend links-->
-    <?php require('inc/links.php');?>
+\
 
     <style> 
     .login-form{
