@@ -10,7 +10,7 @@
   
 
 <style>
-  
+
 
 /* Carousal */
 
@@ -36,7 +36,9 @@
                     <img src="images/it.jpg" class="w-100 d-block">
                 </div>
                 <div class="swiper-slide">
-                    <img src="images/Avengers.jpg" class="w-100 d-block">
+                    <a href="movie/movie.php">
+                        <img src="images/Avengers.jpg" class="w-100 d-block">
+                    </a>
                 </div>
                 <div class="swiper-slide">
                     <img src="images/TLB.jpg" class="w-100 d-block">
@@ -58,9 +60,11 @@
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
                     <img src="images/GOT.jpg" class="w-100 d-block">
+                    
                 </div>
                 <div class="swiper-slide">
                     <img src="images/frdns.jpg" class="w-100 d-block">
+                    
                 </div>
                 <div class="swiper-slide">
                     <img src="images/BB.jpg" class="w-100 d-block">

@@ -46,7 +46,7 @@
             <li><a class="dropdown-item" href="#">Action</a></li>
             <li><a class="dropdown-item" href="#">Comedy</a></li>
             <li><a class="dropdown-item" href="#">Horror/Thriller</a></li>
-            <li><a class="dropdown-item" href="#">Documentaries</a></li>
+            <li><a class="dropdown-item" href="#">Drama</a></li>
             <li><hr class="dropdown-divider"></li>
             <!--  <li><a class="dropdown-item" href="#">Separated link</a></li>-->
         </ul>
