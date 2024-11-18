@@ -15,7 +15,7 @@
           <a class="nav-link me-2" href="login.php">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link me-2" href="#">Movies</a>
+          <a class="nav-link me-2" href="movies.php">Movies</a>
         </li>
         <li class="nav-item">
           <a class="nav-link me-2" href="#">Watchlist</a>
