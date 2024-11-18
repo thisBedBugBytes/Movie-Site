@@ -6,6 +6,7 @@
     <title>Hotel</title>
   
     <?php require('./inc/links.php');?>
+    <?php include('./inc/db_config_gen.php');?>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
   
 
@@ -27,14 +28,26 @@
 <body>
     <?php require('inc/header.php');?>
 
-    <!--carousel-->
+    <!--image slide-->
+
+
     <div class="container-fluid px-lg-4 mt-4 mb-3">
         <h2 class="mb-lg-3 mb-2">Movies we've liked</h2>
         <div class="swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                    <img src="images/it.jpg" class="w-100 d-block">
-                </div>
+                <?php
+                $images = display_img('movies');
+                foreach ($images as $image){
+                   
+                        echo "<div class='swiper-slide'>";
+                        echo "<a href='movie/movie.php?movie_id=" . $image['movie_id'] . "'>";
+                        echo "<img src='" . $image['poster_big'] . "' class='w-100 d-block' alt='SP Image'>";
+                        echo  "</a>";
+                        echo   "</div>";
+                
+            }
+            ?>
+            <!--
                 <div class="swiper-slide">
                     <a href="movie/movie.php">
                         <img src="images/Avengers.jpg" class="w-100 d-block">
@@ -49,6 +62,7 @@
                 <div class="swiper-slide">
                     <img src="images/freshjpg.jpg" class="w-100 d-block">
                 </div>
+-->
             </div>
             <div class="swiper-pagination"></div>
         </div>
