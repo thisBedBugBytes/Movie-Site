@@ -14,28 +14,28 @@
         <div class="swiper-wrapper">
     
         <div class="swiper-slide">
-            <img src="imgsrc/joker.jpg" />
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a1/Stree_2.jpg" />
         </div>
         <div class="swiper-slide">
-            <img src="imgsrc/stree2.jpg"  />
+            <img src="https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_.jpg"  />
         </div>
         <div class="swiper-slide">
-            <img src="imgsrc/smile.jpg"  />
+            <img src="https://m.media-amazon.com/images/M/MV5BODI0OGRjYmEtNzFlNi00NTRlLTg3YTItM2ZkOGYyYTVhYjlkXkEyXkFqcGc@._V1_.jpg"  />
         </div>
         <div class="swiper-slide">
-            <img src="imgsrc/jawan.jpg" />
+            <img src="https://m.media-amazon.com/images/M/MV5BMzUzNDM2NzM2MV5BMl5BanBnXkFtZTgwNTM3NTg4OTE@._V1_.jpg" />
         </div>
         <div class="swiper-slide">
-            <img src="imgsrc/everythingeverywhere.webp"  />
+            <img src="https://upload.wikimedia.org/wikipedia/en/1/1e/Everything_Everywhere_All_at_Once.jpg"  />
         </div>
         <div class="swiper-slide">
-            <img src="imgsrc/endgame.jpg"  />
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/39/Jawan_film_poster.jpg/220px-Jawan_film_poster.jpg"  />
         </div>
         <div class="swiper-slide">
-            <img src="imgsrc/barbie.jpg"  />
+            <img src="https://m.media-amazon.com/images/M/MV5BYjI3NDU0ZGYtYjA2YS00Y2RlLTgwZDAtYTE2YTM5ZjE1M2JlXkEyXkFqcGc@._V1_.jpg"  />
         </div>
         <div class="swiper-slide">
-            <img src="imgsrc/insideout.jpg"  />
+            <img src="https://m.media-amazon.com/images/M/MV5BNDRjZmZhZTEtMzdlYi00MmE0LTgyZGMtZDc5ZWI0MjcxZTliXkEyXkFqcGc@._V1_.jpg"  />
         </div>
 
         </div>
