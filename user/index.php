@@ -12,9 +12,7 @@
     <h2 class="text-left me-10 py-2 px-3 fw-bold fs-1 oswald-regular" style= "color:#F4CE14">Most Watched This Week</h2>
     <div class="swiper swiper-container">
         <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <img src="imgsrc/dune.jpg"  />
-        </div>
+    
         <div class="swiper-slide">
             <img src="imgsrc/joker.jpg" />
         </div>
