@@ -1,9 +1,9 @@
 
 <!--require function to link db_config.php-->
 <?php
-    require('inc/essentials.php');
-    require('inc/db_config.php');
-    require('inc/links.php');
+    include('inc/essentials.php');
+    include('inc/db_config.php');
+    include('inc/links.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +13,7 @@
     <title>Admin Login Panel</title>
 
 <!--connects to links.php for frontend links-->
-\
+
 
     <style> 
     .login-form{
@@ -32,27 +32,27 @@
     }
     </style>
 </head>
-<body class="bg-dark">
 
-    <!--Login Form-->
-    <div class="login-form text-center rounded shadow overflow-none">
+<body class="bg-dark d-flex justify-content-center align-items-center vh-100">
+
+    <div class="login-form text-center rounded shadow p-4" style="background-color: rgba(0, 0, 0, 0.8); max-width: 400px;">
         <form class="login" method="POST">
-            <h4 class="bg-black text-white py-3">ADMIN LOGIN PANEL</h4>
+            <h4 class="bg-black text-white fw-bold fs-4 oswald-regular p-3 rounded">ADMIN LOGIN PANEL</h4>
            
-            <div class="p-4">
-                <div class="mb-3">
-                        <input name="admin_name" required type="text" class="form-control shadow-none" aria-describedby="emailHelp" placeholder="Admin Name">
-                    </div>
-
-                    <div class="mb-4">
-                        <input name="admin_pass" required type="password" class="form-control shadow-none" placeholder="Password">
-                    </div>
-                    <button name="login" type="submit" class="btn btn-outline-light">Login</button> 
-                </div>
+            <div class="mb-3">
+                <input name="admin_name" required type="text" class="form-control shadow-none" placeholder="Admin Name">
             </div>
+
+            <div class="mb-4">
+                <input name="admin_pass" required type="password" class="form-control shadow-none" placeholder="Password">
+            </div>
+
+            <button name="login" type="submit" class="btn btn-outline-light w-100">Login</button> 
         </form>
     </div>
+
    
+</body>
 
 <?php
     #checks if POST in form returns a name='login' value
@@ -84,6 +84,6 @@
 
 
 <!--Has the scripts needed for the frontend-->
-    <?php require('inc/scripts.php'); ?>
+    <?php include('inc/scripts.php'); ?>
 </body>
 </html>

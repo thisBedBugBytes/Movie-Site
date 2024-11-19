@@ -13,17 +13,18 @@
     <div class="swiper swiper-container">
         <div class="swiper-wrapper">
         <div class="swiper-slide">
+            <img src="imgsrc/dune.jpg"  />
+        </div>
+        <div class="swiper-slide">
             <img src="imgsrc/joker.jpg" />
         </div>
         <div class="swiper-slide">
             <img src="imgsrc/stree2.jpg"  />
         </div>
         <div class="swiper-slide">
-            <img src="imgsrc/lalaland.jpg" />
+            <img src="imgsrc/smile.jpg"  />
         </div>
         <div class="swiper-slide">
-            <img src="imgsrc/smile.jpg"  />
-        </div><div class="swiper-slide">
             <img src="imgsrc/jawan.jpg" />
         </div>
         <div class="swiper-slide">

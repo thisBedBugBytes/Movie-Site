@@ -3,8 +3,8 @@
     #arguments for connection
     $host_name = 'localhost';
     $user_name = 'root';
-    $pass = '04042018';
-    $db = '311_project';
+    $pass = '';
+    $db = 'CineBox';
 
     #php object for db connedction
     $con = mysqli_connect($host_name, $user_name, $pass, $db);
