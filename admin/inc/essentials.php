@@ -17,5 +17,11 @@ function alert($type, $msg){
 alert;
 }
 
+function adminLogin(){
+    session_start();
+    if(!((isset($_SESSION['adminLogin']))&&$_SESSION['adminLogin']==true)){
+        header("location : index.php");
+    }
+}
 
 ?>

@@ -9,10 +9,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active me-2" aria-current="page" href="signup.php">Create Account</a>
+          <a class="nav-link active me-2" aria-current="page" href="user/signup.php">Create Account</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link me-2" href="login.php">Login</a>
+          <a class="nav-link me-2" href="user/login.php">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link me-2" href="movies.php">Movies</a>

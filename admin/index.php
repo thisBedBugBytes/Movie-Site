@@ -2,6 +2,11 @@
     include('inc/essentials.php');
     include('inc/db_config.php');
     include('inc/links.php');
+
+    session_start();
+    if((isset($_SESSION['adminLogin']))&&$_SESSION['adminLogin']==true){
+        redirect('dashboard.php');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,7 +79,6 @@
     $res = select($query, $values, $datatypes);
     if($res->num_rows==1){
       $row = mysqli_fetch_assoc($res);
-      session_start();
       $_SESSION['adminLogin']  = true;
       $_SESSION['adminID'] = $row['admin_id'];
       redirect("dashboard.php");
