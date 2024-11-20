@@ -46,7 +46,7 @@
 <h1 class="text-center me-10 py-4 px-3 fw-bold fs-1 oswald-regular" style="color:#3bb6d5; margin-bottom: 20px;">Catalog your cine journey!!!</h1>
 <div class="container">
     <div style="display: flex; justify-content: center; margin-top: 20px;"> 
-        <form action="signup.php" method="get">
+        <form action="user/signup.php" method="get">
             <button 
                 class="btn btn-outline-secondary shadow-none text-center outfit-regular" 
                 type="submit" 
