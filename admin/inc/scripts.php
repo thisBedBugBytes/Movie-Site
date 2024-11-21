@@ -19,3 +19,36 @@
       },
     });
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const expandButtons = document.querySelectorAll('.expand-btn');
+
+        expandButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const description = this.previousElementSibling;
+                if (description.style.maxHeight) {
+                    // Collapse
+                    description.style.maxHeight = null;
+                    this.textContent = 'Show More';
+                } else {
+                    // Expand
+                    description.style.maxHeight = description.scrollHeight + 'px';
+                    this.textContent = 'Show Less';
+                }
+            });
+        });
+    });
+
+
+    function validateForm() {
+        let form = document.getElementById('movie-form');
+        
+        if (!form.checkValidity()) {
+            alert('Please fill out all the required fields.');
+            return false; 
+        }
+
+        alert('Movie added successfully!'); 
+        form.reset(); 
+    }
+</script>

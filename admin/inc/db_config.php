@@ -13,7 +13,6 @@
         if(!$con) {
             die("Cannot connect tp Database".mysqli_connect_error());
         }
-
         function filter($data){
             #extracts the values 
             #from the data in POST in index.php

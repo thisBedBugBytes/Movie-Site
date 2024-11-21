@@ -91,5 +91,20 @@
             background-color: #F4CE14; 
             color: #000; 
         }
+        .description-container {
+    position: relative;
+}
+
+.expand-btn {
+    display: block;
+    margin-top: 5px;
+    cursor: pointer;
+    color: #007bff; /* Bootstrap primary color */
+    text-decoration: none;
+}
+
+.expand-btn:hover {
+    text-decoration: underline;
+}
 
 </style>
