@@ -15,7 +15,7 @@
     $movieCountRow = mysqli_fetch_assoc($movieCountResult);
     $movieCount = $movieCountRow['total_movies'];
 
-    $totalBanQuery = "SELECT COUNT(*) as total_banned FROM user where banned=0";
+    $totalBanQuery = "SELECT COUNT(*) as total_banned FROM user where banned=1";
     $totalBanResult = $con->query($totalBanQuery);
     $totalBanRow = mysqli_fetch_assoc($totalBanResult);
     $totalBan = $totalBanRow['total_banned'];
