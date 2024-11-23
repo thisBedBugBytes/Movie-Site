@@ -1,3 +1,4 @@
+
 <!--- Navigation Bar --->
 <?php session_start();?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-lg-3 py-lg-3 shadow sm sticky top">

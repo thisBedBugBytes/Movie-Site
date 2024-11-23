@@ -18,6 +18,7 @@ if(isset($_POST['done'])){
     $genre = $_POST['genre'];
     $release_date = $_POST['release_date'];
     $poster = $_POST['poster-url'];
+    
 
     $sql = "INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ('$title','$director', '$description','$release_date', '$runtime', '$genre', '$poster')";
     $sql_run = mysqli_query($con,$sql);

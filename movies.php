@@ -4,7 +4,6 @@ include("navbar.php");
 include('admin/inc/essentials.php');
 include('admin/inc/db_config.php');
 include('admin/inc/links.php');
-
 ?>
 <style>
     .navbar {
@@ -159,9 +158,7 @@ $result = mysqli_query($con, $sql);
         }
         ?>
     </div
-
-
-
-        <?php
-        include("footer.php");
-        ?>
+</div>
+    <?php
+    include("footer.php");
+    ?>
