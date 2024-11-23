@@ -1,12 +1,46 @@
 <?php
-    include('admin/inc/essentials.php');
-    include('admin/inc/db_config.php');
-    include('admin/inc/links.php');
+include('admin/inc/essentials.php');
+include('admin/inc/db_config.php');
+include('admin/inc/links.php');
+include('navbar.php');
+session_start();
+if (isset($_POST['create_account'])) {
+
+    $name = $_POST['name'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
+    $dob = $_POST['dob'];
+    $gender = $_POST['gender'];
+    $password = $_POST['password'];
+    $hash = password_hash("$password", PASSWORD_BCRYPT);
+
+    $query = "SELECT * FROM user WHERE email = '$email'";
+    $result = mysqli_query($con, $query);
+
+    if (mysqli_num_rows($result) >= 1) {
+        session_destroy();
+        echo "<script>alert('Account already exists!');</script>";
+        redirect('index.php');
+    } else {
+        $sql = "INSERT INTO `user` (`name`, `phone_number`, `dob`, `password`, `email`, `gender`) VALUES ('$name','$phone', '$dob','$hash', '$email', '$gender')";
+        $sql_run = mysqli_query($con, $sql);
+
+        if ($sql_run) {
+            session_destroy();
+            echo "<script>alert('Account Created:D');</script>";
+            redirect('login.php');
+        } else {
+            session_destroy();
+            echo "<script>alert('Error, Server Down :(');</script>";
+        }
+    }
+}
+
 ?>
 
 <?php
 
-// Check if the form is submitted
+/*// Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve form data
     $name = mysqli_real_escape_string($con, $_POST['name']);
@@ -64,4 +98,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="submit">Sign Up</button>
     </form>
 </body>
-</html>
+</html>*/

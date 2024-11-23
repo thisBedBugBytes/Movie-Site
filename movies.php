@@ -1,6 +1,10 @@
 <?php
 include("header.php");
 include("navbar.php");
+include('admin/inc/essentials.php');
+include('admin/inc/db_config.php');
+include('admin/inc/links.php');
+
 ?>
 <style>
     .navbar {
@@ -24,6 +28,22 @@ include("navbar.php");
 
     .dropdown-item:hover {
         background-color: #f0f0f0;
+    }
+
+    .card {
+        width: 180px;
+        /* Set a fixed width */
+        height: 300px;
+        /* Set a fixed height */
+        margin: auto;
+        /* Center the card */
+    }
+
+    .card-img-top {
+        height: 150px;
+        /* Set a fixed height for the image */
+        object-fit: cover;
+        /* Ensure the image covers the area */
     }
 </style>
 
@@ -78,99 +98,70 @@ include("navbar.php");
     </div>
 </nav>
 
+<?php
+$sql = "SELECT * FROM movies";
+$result = mysqli_query($con, $sql);
+?>
+
 <div class="container">
     <div class="row">
-        <div class="col-lg-2 col-md-4 my-2">
-            <div class="card border-0 shadow" style="max-width: 180px; margin:auto; height: 300px;">
-                <img src="imgsrc/stree2.jpg" class="card-img-top" alt="..." style="height: 150px; object-fit: cover;">
-                <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
-                    <h5 class="card-title" style="font-size: 1rem;">Stree 2</h5>
-                    <h6 class="card-title" style="font-size: .8rem;">Directed By : Amar Kaushik</h6>
-                </div>
-                <ul class="list-group list-group-flush bg-dark text-white" style="padding: 0.2rem;">
-                    <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Release Date : </li>
-                    <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Genre : </li>
-                    <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating : </li>
-                    <span style="font-size: 0.8rem; margin-left: 5px;">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                    </span>
-                </ul>
-                <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
-                    <div class="d-flex justify-content-evenly">
-                        <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none">Watchlist</a>
-                        <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none">Details</a>
+        <?php
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+        ?>
+                <div class="col-lg-2 col-md-4 my-2">
+                    <div class="card border-0 shadow" style="width: 200px; margin:auto; height: 460px;">
+                        <img src="<?php echo htmlspecialchars($row['poster']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['title']); ?>" style="height: 150px; object-fit: cover;">
+                        <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
+                            <h5 class="card-title" style="font-size: 1.2rem;"><?php echo htmlspecialchars($row['title']); ?></h5>
+                            <h6 class="card-title" style="font-size: .8rem;">Directed By: <?php echo htmlspecialchars($row['director']); ?></h6>
+                            <h6 class="card-title" style="font-size: .8rem;">
+                                <i class="bi bi-clock" style="margin-right: 5px;"></i>
+                                <?php echo htmlspecialchars($row['duration_min']); ?> minutes
+                            </h6>
+                        </div>
+                        <ul class="list-group list-group-flush bg-dark text-white" style="padding: 0.2rem;">
+                            <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Release: <?php echo htmlspecialchars($row['release_date']); ?></li>
+                            <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Genre: <?php echo htmlspecialchars($row['genre']); ?></li>
+                            <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating: <?php echo htmlspecialchars($row['rating']); ?></li>
+                            <span style="font-size: 0.8rem; margin-left: 5px;">
+                                <?php
+                                $rating = $row['rating'];
+                                $fullStars = floor($rating);
+                                $halfStar = ($rating - $fullStars) >= 0.5;
+
+                                for ($i = 0; $i < $fullStars; $i++) {
+                                    echo '<i class="bi bi-star-fill"></i>';
+                                }
+
+                                if ($halfStar) {
+                                    echo '<i class="bi bi-star-half"></i>';
+                                }
+
+                                for ($i = $fullStars + ($halfStar ? 1 : 0); $i < 5; $i++) {
+                                    echo '<i class="bi bi-star"></i>';
+                                }
+                                ?>
+                            </span>
+                        </ul>
+                        <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
+                            <div class="d-flex justify-content-evenly">
+                                <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Add to Watchlist</a>
+                                <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Details</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-4 my-2">
-            <div class="card border-0 shadow" style="max-width: 180px; margin:auto; height: 300px;">
-                <img src="imgsrc/stree2.jpg" class="card-img-top" alt="..." style="height: 150px; object-fit: cover;">
-                <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
-                    <h5 class="card-title" style="font-size: 1rem;">Stree 2</h5>
-                    <h6 class="card-title" style="font-size: .8rem;">Directed By : Amar Kaushik</h6>
-                </div>
-                <ul class="list-group list-group-flush bg-dark text-white" style="padding: 0.2rem;">
-                    <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Release Date : </li>
-                    <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Genre : </li>
-                    <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating : </li>
-                    <span style="font-size: 0.8rem; margin-left: 5px;">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                    </span>
-                </ul>
-                <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
-                    <div class="d-flex justify-content-evenly">
-                        <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none">Watchlist</a>
-                        <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none">Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-2 col-md-4 my-2">
-            <div class="card border-0 shadow" style="max-width: 180px; margin:auto; height: 300px;">
-                <img src="imgsrc/stree2.jpg" class="card-img-top" alt="..." style="height: 150px; object-fit: cover;">
-                <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
-                    <h5 class="card-title" style="font-size: 1rem;">Stree 2</h5>
-                    <h6 class="card-title" style="font-size: .8rem;">Directed By : Amar Kaushik</h6>
-                </div>
-                <ul class="list-group list-group-flush bg-dark text-white" style="padding: 0.2rem;">
-                    <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Release Date : </li>
-                    <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Genre : </li>
-                    <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating : </li>
-                    <span style="font-size: 0.8rem; margin-left: 5px;">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                    </span>
-                </ul>
-                <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
-                    <div class="d-flex justify-content-evenly">
-                        <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none">Watchlist</a>
-                        <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none">Details</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!---<div class="col-lg-12 text-center mt-3"> 
-        <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none">See more...</a>
-        </div>--->
-    </div>
-</div>
+        <?php
+            }
+        } else {
+            echo "<p>No movies found.</p>";
+        }
+        ?>
+    </div
 
 
 
-
-
-<?php
-include("footer.php");
-?>
+        <?php
+        include("footer.php");
+        ?>

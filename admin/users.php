@@ -109,7 +109,7 @@
                                     <td>$row[dob]</td>
                                     <td>$row[gender]</td>
                                     <td>
-                                        
+                                        <button type="button" class="btn btn-warning" onclick="editMovie($row[movie_id])" value = "name"> edit</button> 
                                     </td>
                                     </tr>
                                    query;

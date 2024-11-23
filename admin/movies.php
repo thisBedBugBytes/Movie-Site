@@ -18,7 +18,6 @@ if(isset($_POST['done'])){
     $genre = $_POST['genre'];
     $release_date = $_POST['release_date'];
     $poster = $_POST['poster-url'];
-    //$admin = $_SESSION['adminID'];
 
     $sql = "INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ('$title','$director', '$description','$release_date', '$runtime', '$genre', '$poster')";
     $sql_run = mysqli_query($con,$sql);
@@ -29,7 +28,7 @@ if(isset($_POST['done'])){
         redirect('movies.php');
         session_destroy();
     } else {
-        echo "<script>alert('Error, Server Down :(');</script>"; 
+        echo "<script>alert('Error,Server Down :(');</script>"; 
     }
     
 }
