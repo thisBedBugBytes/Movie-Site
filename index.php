@@ -47,13 +47,15 @@ include("navbar.php");
     <div style="display: flex; justify-content: center; margin-top: 20px;">
         <form action="user/signup.php" method="get">
             <button
-                class="btn btn-outline-secondary shadow-none text-center outfit-regular"
-                type="submit"
+                class="btn btn-outline-secondary shadow-none text-center outfit-regular "
+                type="button"
+                data-bs-toggle="modal" data-bs-target="#create-account"
                 style="font-size: 20px; padding: 12px 30px; ">
                 Get Started Now
             </button>
         </form>
     </div>
+    
 </div>
 
 <?php

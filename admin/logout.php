@@ -3,7 +3,9 @@
 
     session_start();
     session_destroy();
-    redirect('index.php');
+    echo "<script>alert('Logged Out');</script>";
+    header('Location:../index.php');
+    exit();
 
 
 ?>
