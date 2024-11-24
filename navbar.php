@@ -1,6 +1,5 @@
-
 <!--- Navigation Bar --->
-<?php session_start();?>
+<?php session_start(); ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-lg-3 py-lg-3 shadow sm sticky top">
   <div class="container-fluid">
     <a class="navbar-brand me-10 fw-bold fs-1 oswald-regular " href="index.php">CineBox</a>
@@ -8,30 +7,37 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <?php if (isset($_SESSION['userName'])): ?>
           <li class="nav-item">
-            <a class="nav-link active me-2" aria-current="page" href="#">Welcome <?php echo htmlspecialchars($_SESSION['userName']); ?></a>
+            <a class="nav-link active me-2 outfit-regular" aria-current="page" href="#">Welcome <?php echo htmlspecialchars($_SESSION['userName']); ?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-2" href="logout.php">Logout</a>
+            <a class="nav-link me-2 outfit-regular" href="logout.php">Logout</a>
           </li>
         <?php else: ?>
           <li class="nav-item">
-            <a class="nav-link me-2" data-bs-toggle="modal" data-bs-target="#create-account">Create Account</a>
+            <a class="nav-link me-2 outfit-regular" data-bs-toggle="modal" data-bs-target="#create-account">Create Account</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-2" href="login.php">Login</a>
+            <a class="nav-link me-2 outfit-regular" href="login.php">Login</a>
           </li>
         <?php endif; ?>
         <li class="nav-item">
-          <a class="nav-link me-2" href="movies.php">Movies</a>
+          <a class="nav-link me-2 outfit-regular" href="movies.php">Movies</a>
         </li>
+        <?php if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] == true): ?>
+          <li class="nav-item">
+            <a class="nav-link me-2 outfit-regular" href="watchlist.php">Watchlist</a>
+          </li>
+        <?php else: ?>
+          <li class="nav-item">
+            <a class="nav-link me-2 outfit-regular" href="login.php">Watchlist</a>
+          </li>
+        <?php endif; ?>
+
         <li class="nav-item">
-          <a class="nav-link me-2" href="#">Watchlist</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link me-2" href="admin/index.php">Admin</a>
+          <a class="nav-link me-2 outfit-regular" href="admin/index.php">Admin</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
