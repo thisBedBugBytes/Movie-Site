@@ -165,13 +165,29 @@ $result = mysqli_query($con, $sql);
                         <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
                             <div class="d-flex justify-content-evenly">
                                 <?php if ($row['user_id'] == $user_id && $user_id != NULL): ?>
-                                    <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Already Added</a>
-                                    <a href="details.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Details</a>
+                                    <a href="#" class="btn btn-sm d-flex justify-content-center align-items-center" style="background-color: white; height: 40px ; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center; display: inline-block;">Already Added</a>
+                                    <a href="details.php" class="btn btn-sm d-flex justify-content-center align-items-center"
+                                        style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; display: inline-block; margin-left :8px;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Details
+                                    </a>
                                 <?php else: ?>
                                     <form action="movies.php" method="POST">
-                                        <button type="submit" name="movie_id" value="<?php echo $movie_id;?>" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Add to Watchlist</button>
+                                        <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
+                                            class="btn btn-sm d-flex justify-content-center align-items-center"
+                                            style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center; display: inline-block;"
+                                            onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                            onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                            Add to Watchlist
+                                        </button>
                                     </form>
-                                    <a href="details.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Details</a>
+                                    <a href="details.php" class="btn btn-sm d-flex justify-content-center align-items-center"
+                                        style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; display: inline-block; margin-left :8px;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Details
+                                    </a>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -184,7 +200,7 @@ $result = mysqli_query($con, $sql);
         }
         ?>
     </div
-</div>
-<?php
+        </div>
+    <?php
     include("footer.php");
-?>
+    ?>
