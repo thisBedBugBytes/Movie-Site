@@ -14,9 +14,9 @@
     else{
         echo "Connection Successful";
     
-    function display_img($table){
+    function display_img($id){
         $con = $GLOBALS['con'];
-        $query = "Select * from $table";
+        $query = "Select poster from movies where movie_id=$id";
         $result = mysqli_query($con, $query);
         if($result->num_rows > 0){
             $images = [];
@@ -30,9 +30,9 @@
             return "";
         }
         }
-        function return_values($id_type, $id, $table){
+        function return_values($id_type, $id){
             $con = $GLOBALS['con']; // Access the global connection
-            $query = "Select * from $table";
+            $query = "Select * from movies WHERE movie_id=$id";
             $result = mysqli_query($con, $query);
             if($result->num_rows > 0){
                 $data = [];
@@ -44,7 +44,7 @@
             }
             return $data[0];
         }  else{
-            echo "Failed to project data";
+            echo "Failed to get data";
         }
     }    
 

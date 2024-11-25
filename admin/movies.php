@@ -1,12 +1,12 @@
 <?php
-include('inc/essentials.php');
+
 include('inc/db_config.php');
 include('inc/links.php');
 include('inc/scripts.php');
 
-adminLogin();
+#adminLogin();
 $success = false;
-session_start();
+#session_start();
 
 
 if(isset($_POST['done'])){
@@ -18,17 +18,22 @@ if(isset($_POST['done'])){
     $genre = $_POST['genre'];
     $release_date = $_POST['release_date'];
     $poster = $_POST['poster-url'];
-    
+   
 
-    $sql = "INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ('$title','$director', '$description','$release_date', '$runtime', '$genre', '$poster')";
-    $sql_run = mysqli_query($con,$sql);
-
-    if ($sql_run) {
-        $_SESSION['success'] = true; 
-        echo "<script>alert('New Movie Added:D');</script>";
-        redirect('movies.php');
-        session_destroy();
-    } else {
+    #$sql = "INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ('$title','$director', '$description','$release_date', '$runtime', '$genre', '$poster')";
+   # $sql_run = mysqli_query($con,$sql);
+$stmt = $con->prepare("INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
+mysqli_stmt_bind_param($stmt, "ssssiss", $title,$director, $description,$release_date, $runtime, $genre, $poster);
+    #if ($sql_run) {
+#    $_SESSION['success'] = true; 
+#       echo "<script>alert('New Movie Added:D');</script>";
+#        redirect('movies.php');
+#       session_destroy();
+ #   }
+ if($stmt->execute()){
+    echo "Movie Inserted Successfully!";
+ }
+  else {
         echo "<script>alert('Error,Server Down :(');</script>"; 
     }
     
@@ -124,6 +129,7 @@ if(isset($_POST['done'])){
                             $data = mysqli_query($con, $sql);
                             while ($row = mysqli_fetch_assoc($data)) {
                                 $description = htmlspecialchars($row['description']);
+                                echo $row['poster'];
                                 echo <<<query
                                     <tr>
                                     <td>$row[movie_id]</td>
@@ -133,7 +139,7 @@ if(isset($_POST['done'])){
                                     <td>$row[release_date]</td>
                                     <td>$row[genre]</td>
                                     <td>$row[rating]</td>
-                                    <td><img src="{$row['poster']}" alt="Poster" style="width: 50px; height: auto;"></td>
+                                    <td><img src="../{$row['poster']}" alt="Poster" style="width: 50px; height: auto;"></td>
                                     <td>
                                         <div class="description-container">
                                             <div class="description" style="max-height: 4.5em; overflow: hidden; transition: max-height 0.3s ease;">
@@ -143,10 +149,13 @@ if(isset($_POST['done'])){
                                         </div>
                                     </td>
                                     <td>
-                                        <div class="btn-group" role="group" aria-label="Action Buttons">
-                                            <button type="button" class="btn btn-warning" onclick="editMovie($row[movie_id])">Edit</button>
-                                            <button type="button" class="btn btn-danger" onclick="deleteMovie($row[movie_id])">Delete</button>
-                                        </div>
+                                     
+                                         <div class="btn-group" role="group" aria-label="Action Buttons">
+                                            <button type="submit" class="btn btn-warning" onclick="editMovie($row[movie_id])">Edit</button>
+                                               
+                                            <button type="submit" class="btn btn-danger" onclick="deleteMovie($row[movie_id])">Delete</button>
+                                         </div>
+                                 
                                     </td>
                                     </tr>
                                    query;
@@ -201,7 +210,66 @@ if(isset($_POST['done'])){
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Poster URL</label>
-                                            <input type="url" class="form-control" id="poster-url" name="poster-url" required>
+                                            <input type="text" class="form-control" id="poster-url" name="poster-url" required>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" name="done" class="btn btn-primary">Done</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal fade" id="edit-movie" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel" style="color: black;">Edit Details</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <form id="movie_form" method="POST" action="movies.php">
+                          
+                                <div class="modal-body" style="color: black;">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Title</label>
+                                            <input type="text" class="form-control" id="title" name="title" value="<?php$data['title'];?>" >
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Director</label>
+                                            <input type="text" class="form-control" id="director" name="director" value="<?=$data['director'];?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Description</label>
+                                            <textarea class="form-control" id="description" name="description" required><?php $data['description']; ?></textarea>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Runtime (minutes)</label>
+                                            <input type="number" class="form-control" id="runtime" name="runtime" value="<?=$data['duration_min'];?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Release Date</label>
+                                            <input type="date" class="form-control" id="release-date" name="release_date" value="<?=$data['release_date'];?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Genre</label>
+                                            <select class="form-select" id="genre" name="genre" value="<?=$data['genre'];?>">
+                                                <option value="" disabled selected>Select Genre</option>
+                                                <option value="Action">Action</option>
+                                                <option value="Animation">Animation</option>
+                                                <option value="Comedy">Comedy</option>
+                                                <option value="Drama">Drama</option>
+                                                <option value="Thriller">Thriller</option>
+                                                <option value="Horror">Horror</option>
+                                                <option value="Romance">Romance</option>
+                                                <option value="Mystery">Mystery</option>
+                                                <option value="Sci-Fi">Sci-Fi</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Poster URL</label>
+                                            <input type="text" class="form-control" id="poster-url" name="poster-url" value="<?=$data['poster'];?>">
                                         </div>
                                 </div>
                                 <div class="modal-footer">

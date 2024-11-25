@@ -1,6 +1,7 @@
 <?php
 include("header.php");
 include("navbar.php");
+include('admin/inc/db_config.php');
 ?>
 
 
@@ -11,10 +12,24 @@ include("navbar.php");
     <h2 class="text-left me-10 py-2 px-3 fw-bold fs-1 oswald-regular" style="color:#F4CE14">Most Watched This Week</h2>
     <div class="swiper swiper-container">
         <div class="swiper-wrapper">
-
-            <div class="swiper-slide">
-                <img src="https://upload.wikimedia.org/wikipedia/en/a/a1/Stree_2.jpg" />
-            </div>
+       <?php
+           $query = "SELECT * FROM `movies`  ORDER BY movie_id";
+           
+           $data = mysqli_query($con, $query);
+           while ($row = mysqli_fetch_assoc($data)) {
+          
+            $description = htmlspecialchars($row['description']);
+            
+            $movie_id = $row['movie_id'];         // Primary key, integer
+           
+            $image = $row['poster'];             // Poster image URL, varchar(255)
+            $rating = $row['rating'];             // Rating, decimal(2,1)
+            echo '<div class="swiper-slide">';
+            echo '<img src="'.$image.'"/>';
+            echo'</div>';
+           }
+            ?>
+            <!--
             <div class="swiper-slide">
                 <img src="https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_.jpg" />
             </div>
@@ -36,6 +51,7 @@ include("navbar.php");
             <div class="swiper-slide">
                 <img src="https://m.media-amazon.com/images/M/MV5BNDRjZmZhZTEtMzdlYi00MmE0LTgyZGMtZDc5ZWI0MjcxZTliXkEyXkFqcGc@._V1_.jpg" />
             </div>
+        -->
 
         </div>
         <div class="swiper-pagination"></div>

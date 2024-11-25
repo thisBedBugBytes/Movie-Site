@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <?php require('../inc/links.php');
-          require('..\inc\db_config_gen.php');
+    <?php include('../inc/links.php');
+          include('../inc/db_config_gen.php');
            ?>
     <style>
         .image-container {
