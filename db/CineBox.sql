@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 26, 2024 at 10:43 AM
+-- Generation Time: Nov 26, 2024 at 08:57 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -52,8 +52,18 @@ CREATE TABLE `diary` (
   `movie_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `rating` decimal(2,1) DEFAULT NULL CHECK (`rating` >= 0 and `rating` <= 5),
-  `review` text DEFAULT NULL
+  `review` text DEFAULT NULL,
+  `log_time` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `diary`
+--
+
+INSERT INTO `diary` (`movie_id`, `user_id`, `rating`, `review`, `log_time`) VALUES
+(62, 2, 4.0, 'Spicing things up with the wrinkle of teenage angst, Inside Out 2 clears the head and warms the heart by living up to its predecessor\'s emotional intelligence.\n\nSpicing things up with the wrinkle of teenage angst, Inside Out 2 clears the head and warms the heart by living up to its predecessor\'s emotional intelligence.\n\nSpicing things up with the wrinkle of teenage angst, Inside Out 2 clears the head and warms the heart by living up to its predecessor\'s emotional intelligence.\n\n', '2024-11-27'),
+(62, 18, 2.0, 'A funny adventure full of positive messages for the whole family, this Pixar sequel hits you right in the feels.', '2024-11-27'),
+(63, 2, 3.0, NULL, '2024-11-27');
 
 -- --------------------------------------------------------
 
@@ -112,7 +122,9 @@ INSERT INTO `user` (`user_id`, `name`, `phone_number`, `email`, `password`, `dob
 (13, 'hridita', '01712312345', 'hridita@gmail.com', '$2y$10$Y9kB5Bre1QUkBlx8t2Xld.durgNGWK0lfSD1up.b/Xyq2d86S52we', '2024-11-07', 'Female', 0),
 (18, 'towhid aslam', '01878431782', 'rdaslam12@gmail.com', '$2y$10$BTiuLVAAIA7IuYyG3rsKau2XmEbCylZurEfynkNja2qRsJo5GLyzW', '2000-06-25', 'Male', 0),
 (19, 'Golu Toid 2', '01982762685', 'rdaslam02@gmail.com', '$2y$10$nn/PmcjJG/mg0559V.ri2OiW0VYEgOp7BLoFZpArxo4y56Q5cq7CO', '2002-06-28', 'Male', 0),
-(20, 'Shahriar Ahmed', '01841596304', 'shahriar1906@gmail.com', '$2y$10$D6rZhOIYzaYcSSIGFmMfBuEzbxOcPFQbJ5CDh21cf/JzvTcQyJ0oa', '2002-12-19', 'Male', 0);
+(20, 'Shahriar Ahmed', '01841596304', 'shahriar1906@gmail.com', '$2y$10$D6rZhOIYzaYcSSIGFmMfBuEzbxOcPFQbJ5CDh21cf/JzvTcQyJ0oa', '2002-12-19', 'Male', 0),
+(21, 'Mustoba Munim Ahsan ', '01987687565', 'munim@gmail.com', '$2y$10$e7EW5W28Wp664efeOC7bueHn22A/yl7sXkxwQpbIHM84FpUF5oNii', '2002-10-28', 'Male', 0),
+(22, 'Abu Masroor', '01625635645', 'upom@gmail.com', '$2y$10$MoQr0/VDWba7lChAHkdS4.VqohOpHUDAXHXNowMO86i5Azli2pR6y', '2002-07-28', 'Male', 0);
 
 -- --------------------------------------------------------
 
@@ -131,7 +143,8 @@ CREATE TABLE `watchlist` (
 
 INSERT INTO `watchlist` (`movie_id`, `user_id`) VALUES
 (1, 2),
-(3, 2);
+(3, 2),
+(62, 2);
 
 --
 -- Indexes for dumped tables
@@ -183,7 +196,7 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- Constraints for dumped tables
