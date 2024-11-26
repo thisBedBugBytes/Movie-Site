@@ -75,11 +75,11 @@ include('admin/inc/links.php');
                         <u>Year</u>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="yearDropdown">
-                        <li><a class="dropdown-item outfit-regular" href="#">2024</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">2023</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">2022</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">2021</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">2020</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2024&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2024</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2023&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2023</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2022&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2022</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2021&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2021</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2020&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2020</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -87,9 +87,9 @@ include('admin/inc/links.php');
                         <u>Runtime</u>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="runtimeDropdown">
-                        <li><a class="dropdown-item outfit-regular" href="#">Under 90 minutes</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">90 - 120 minutes</a></li>
-                        <li><a class=" dropdown-item outfit-regular" href="#">Over 120 minutes</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="movies.php?Runtime=0&Year=<?php echo $_GET['Year'] ?? ''; ?>">Under 90 minutes</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="movies.php?Runtime=90&Year=<?php echo $_GET['Year'] ?? ''; ?>">90 - 120 minutes</a></li>
+                        <li><a class=" dropdown-item outfit-regular" href="movies.php?Runtime=120&Year=<?php echo $_GET['Year'] ?? ''; ?>">Over 120 minutes</a></li>
                     </ul>
                 </li>
             </ul>
@@ -98,7 +98,36 @@ include('admin/inc/links.php');
 </nav>
 
 <?php
-$sql = "SELECT * FROM movies";
+$sql = "SELECT * FROM `movies` WHERE 1";
+
+
+$year = isset($_GET['Year']) ? $_GET['Year'] : null;
+if($year != null){
+    $year = $_GET['Year'];
+    $sql .= " AND YEAR(`release_date`) = $year";
+}
+$runtime = isset($_GET['Runtime']) ? $_GET['Runtime'] : '';
+ if(isset($_GET['Runtime'])){
+    $runtime = $_GET['Runtime'];
+    if ($runtime == 0) {
+        $mintime = 0;
+        $maxtime = 90;
+    } elseif ($runtime == 90) {
+        $mintime = 90;
+        $maxtime = 120;
+    } elseif ($runtime == 120) {
+        $mintime = 120;
+        $maxtime = 1200;
+    }
+    
+    echo $maxtime;
+    echo $mintime;
+    
+$sql .= " AND `duration_min` in (SELECT `duration_min` FROM `movies` WHERE `duration_min` > $mintime AND `duration_min` < $maxtime)";
+}
+
+
+$sql .= ";";
 $result = mysqli_query($con, $sql);
 ?>
 
