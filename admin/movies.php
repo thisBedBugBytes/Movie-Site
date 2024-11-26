@@ -234,7 +234,7 @@ if(isset($_POST['done'])){
                                 <div class="modal-body" style="color: black;">
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Title</label>
-                                            <input type="text" class="form-control" id="title" name="title" value="<?php$data['title'];?>" >
+                                            <input type="text" class="form-control" id="title" name="title" value="<?php $data['title'];?>" >
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Director</label>
