@@ -4,6 +4,20 @@ include("navbar.php");
 include('admin/inc/essentials.php');
 include('admin/inc/db_config.php');
 include('admin/inc/links.php');
+
+session_start();
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] == true) {
+        $movie_id = $_POST['movie_id'];
+        $user_id = $_SESSION['userID'];
+        $sql = "INSERT INTO `watchlist` (`movie_id`, `user_id`) VALUES ('$movie_id','$user_id')";
+        $sql_run = mysqli_query($con, $sql);
+        if ($sql_run) {
+            redirect('movies.php');
+        }
+    } else redirect("login.php");
+}
+
 ?>
 <style>
     .navbar {
@@ -98,8 +112,10 @@ include('admin/inc/links.php');
 </nav>
 
 <?php
-$sql = "SELECT * FROM movies";
+$user_id = $_SESSION['userID'];
+$sql = "SELECT m.movie_id as movie_id, title, director, genre, poster, duration_min, release_date, user_id, genre , rating FROM movies as m LEFT JOIN watchlist as w on m.movie_id=w.movie_id;";
 $result = mysqli_query($con, $sql);
+
 ?>
 
 <div class="container">
@@ -107,6 +123,8 @@ $result = mysqli_query($con, $sql);
         <?php
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
+                $watchlistadd = false;
+
         ?>
                 <div class="col-lg-2 col-md-4 my-2">
                     <div class="card border-0 shadow" style="width: 200px; margin:auto; height: 460px;">
@@ -125,6 +143,7 @@ $result = mysqli_query($con, $sql);
                             <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating: <?php echo htmlspecialchars($row['rating']); ?></li>
                             <span style="font-size: 0.8rem; margin-left: 5px;">
                                 <?php
+                                $movie_id = $row['movie_id'];
                                 $rating = $row['rating'];
                                 $fullStars = floor($rating);
                                 $halfStar = ($rating - $fullStars) >= 0.5;
@@ -145,8 +164,31 @@ $result = mysqli_query($con, $sql);
                         </ul>
                         <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
                             <div class="d-flex justify-content-evenly">
-                                <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Add to Watchlist</a>
-                                <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Details</a>
+                                <?php if ($row['user_id'] == $user_id && $user_id != NULL): ?>
+                                    <a href="#" class="btn btn-sm d-flex justify-content-center align-items-center" style="background-color: white; height: 40px ; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center; display: inline-block;">Already Added</a>
+                                    <a href="details.php" class="btn btn-sm d-flex justify-content-center align-items-center"
+                                        style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; display: inline-block; margin-left :8px;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Details
+                                    </a>
+                                <?php else: ?>
+                                    <form action="movies.php" method="POST">
+                                        <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
+                                            class="btn btn-sm d-flex justify-content-center align-items-center"
+                                            style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center; display: inline-block;"
+                                            onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                            onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                            Add to Watchlist
+                                        </button>
+                                    </form>
+                                    <a href="details.php" class="btn btn-sm d-flex justify-content-center align-items-center"
+                                        style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; display: inline-block; margin-left :8px;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Details
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -158,7 +200,7 @@ $result = mysqli_query($con, $sql);
         }
         ?>
     </div
-</div>
+        </div>
     <?php
     include("footer.php");
     ?>
