@@ -112,6 +112,3 @@ session_start(); ?>
     </div>
   </div>
 </nav>
-<?php
-session_abort();
-?>

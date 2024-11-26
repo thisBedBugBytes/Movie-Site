@@ -129,7 +129,7 @@ if(isset($_POST['done'])){
                             $data = mysqli_query($con, $sql);
                             while ($row = mysqli_fetch_assoc($data)) {
                                 $description = htmlspecialchars($row['description']);
-                                
+                                echo $row['poster'];
                                 echo <<<query
                                     <tr>
                                     <td>$row[movie_id]</td>
@@ -139,7 +139,7 @@ if(isset($_POST['done'])){
                                     <td>$row[release_date]</td>
                                     <td>$row[genre]</td>
                                     <td>$row[rating]</td>
-                                    <td><img src="{$row['poster']}" alt="Poster" style="width: 50px; height: auto;"></td>
+                                    <td><img src="../{$row['poster']}" alt="Poster" style="width: 50px; height: auto;"></td>
                                     <td>
                                         <div class="description-container">
                                             <div class="description" style="max-height: 4.5em; overflow: hidden; transition: max-height 0.3s ease;">
@@ -234,7 +234,7 @@ if(isset($_POST['done'])){
                                 <div class="modal-body" style="color: black;">
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Title</label>
-                                            <input type="text" class="form-control" id="title" name="title" value="<?php $data['title'];?>" >
+                                            <input type="text" class="form-control" id="title" name="title" value="<?php$data['title'];?>" >
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Director</label>
