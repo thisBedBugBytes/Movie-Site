@@ -117,8 +117,9 @@
 </head>
 
 <body>
-    <?php require('C:\xampp\htdocs\hotelsys\inc\header.php') ?>
-    <?php
+    <?php include('C:\xampp\htdocs\hotelsys\inc\header.php') ?>
+    
+   <?php/*
     if (isset($_GET['movie_id'])) {
         $movie_id = $_GET['movie_id'];
     } else {
@@ -133,6 +134,7 @@
         echo "Small poster path: " . "" . $data['poster_small'] . "<br>";
         echo "</pre>";
     }
+    
     if ($data) {
         echo '
         <div class="container-fluid">
@@ -164,7 +166,36 @@
         </div>';
     } else {
         echo "Data not found for Movie ID: " . $movie_id;
+    }*/
+    
+    if(isset($_POST['search'])){
+
+
+       $search ="%".$_POST['search']."%";
+       $stmt = $con->prepare("SELECT movie_id, title FROM movies WHERE title LIKE ? LIMIT 1;");
+
+       mysqli_stmt_bind_param($stmt, "s", $search);
+       $stmt->execute();
+       $data = mysqli_stmt_get_result($stmt);
+       if(mysqli_num_rows($data) > 0){
+         $result = mysqli_fetch_assoc($data);
+         $movie_id = $result['movie_id'];
+         $title = $result['title'];
+         echo $title;
+         echo '<form id="movie_id_search" method="POST" action="movies.php">';
+         echo '<input type="hidden" name="movie_id_search" value="' . "$movie_id" . '">';
+         echo '</form>';
+         echo '<script type="text/javascript">
+                 document.getElementById("movie_id_search").submit();
+               </script>';
+         
+       }
+       else{
+         echo "<script>alert('I'm afraid we don't have that  :'();</script>"; 
+       }
+
     }
+   
 ?>
 
 
