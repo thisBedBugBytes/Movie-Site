@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 26, 2024 at 09:50 AM
+-- Generation Time: Nov 26, 2024 at 10:43 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -41,6 +41,19 @@ INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_pass`) VALUES
 (1, 'Preetasha', '1234'),
 (2, 'Birjis', '5678'),
 (3, 'Rochona', '3456');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `diary`
+--
+
+CREATE TABLE `diary` (
+  `movie_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `rating` decimal(2,1) DEFAULT NULL CHECK (`rating` >= 0 and `rating` <= 5),
+  `review` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -131,6 +144,13 @@ ALTER TABLE `admin`
   ADD PRIMARY KEY (`admin_id`);
 
 --
+-- Indexes for table `diary`
+--
+ALTER TABLE `diary`
+  ADD PRIMARY KEY (`movie_id`,`user_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `movies`
 --
 ALTER TABLE `movies`
@@ -168,6 +188,13 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `diary`
+--
+ALTER TABLE `diary`
+  ADD CONSTRAINT `diary_ibfk_1` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`movie_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `diary_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `watchlist`

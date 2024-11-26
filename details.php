@@ -102,13 +102,13 @@ include('admin/inc/scripts.php');
                         <div style="flex: 2; margin-right: 20px;">
                             <h1 style="font-size: 3.5em; margin-bottom: 10px;">Movie Title</h1>
                             <div style="margin-bottom: 15px;">
-                                <strong style="font-size: 1.0em; display: inline-block; width: 110px;">Release Date:</strong>  YYYY-MM-DD
+                                <strong style="font-size: 1.0em; display: inline-block; width: 110px;">Release Date:</strong>  DD-MM-YYYY
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <strong style="display: inline-block; width: 110px;">Genre:</strong> Action, Drama
                             </div>
                             <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 110px;">Runtime:</strong> 120 minutes
+                                <strong style="display: inline-block; width: 110px;">Runtime:</strong> 120 min
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <strong style="display: inline-block; width: 110px;">Director:</strong> Director Name
@@ -120,6 +120,15 @@ include('admin/inc/scripts.php');
                                 <strong style="display: inline-block; width: 100px;">Description:</strong>
                                 <p style="margin: 0;">A brief summary of the movie's plot goes here. This should provide an overview without revealing spoilers.</p>
                             </div>
+                            <form action="movies.php" method="POST">
+                                        <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
+                                            class="btn btn-sm d-flex justify-content-center align-items-center"
+                                            style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 20px 20px; font-weight: bold; text-align: center; display: inline-block;"
+                                            onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                            onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                            Add to Diary
+                                        </button>
+                                    </form>
                         </div>
 
                         <div>
