@@ -5,6 +5,7 @@ include('admin/inc/essentials.php');
 include('admin/inc/db_config.php');
 include('admin/inc/links.php');
 
+session_start();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] == true) {
         $movie_id = $_POST['movie_id'];
@@ -72,28 +73,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <u>Genre</u>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="genreDropdown">
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Action'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Action</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Animation'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Animation</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Comedy'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Comedy</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Drama'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Drama</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Horror'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Horror</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Mystery'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Mystery</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Romance'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Romance</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Sci-Fi'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Sci-Fi</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Thriller'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Thriller</a></li>
-                    </ul> 
+                        <li><a class="dropdown-item outfit-regular" href="#">Action</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Animation</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Comedy</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Drama</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Horror</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Mystery</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Romance</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Sci-Fi</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Thriller</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle outfit-regular" href="#" id="yearDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#E5E4E2">
                         <u>Year</u>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="yearDropdown">
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2024&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2024</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2023&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2023</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2022&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2022</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2021&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2021</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2020&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2020</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2019&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2019</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">2024</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">2023</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">2022</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">2021</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">2020</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -101,9 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <u>Runtime</u>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="runtimeDropdown">
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Runtime=0&Year=<?php echo $_GET['Year'] ?? ''; ?>">Under 90 minutes</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Runtime=90&Year=<?php echo $_GET['Year'] ?? ''; ?>">90 - 120 minutes</a></li>
-                        <li><a class=" dropdown-item outfit-regular" href="movies.php?Runtime=120&Year=<?php echo $_GET['Year'] ?? ''; ?>">Over 120 minutes</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Under 90 minutes</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">90 - 120 minutes</a></li>
+                        <li><a class=" dropdown-item outfit-regular" href="#">Over 120 minutes</a></li>
                     </ul>
                 </li>
             </ul>
@@ -112,32 +112,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </nav>
 
 <?php
-$query = "SELECT * FROM `movies` WHERE 1";
+$user_id = $_SESSION['userID'];
+$sql = "SELECT m.movie_id as movie_id, title, director, genre, poster, duration_min, release_date, user_id, genre , rating FROM movies as m LEFT JOIN watchlist as w on m.movie_id=w.movie_id;";
+$result = mysqli_query($con, $sql);
 
-
-$year = isset($_GET['Year']) ? $_GET['Year'] : null;
-if($year != null){
-    $year = $_GET['Year'];
-    $query .= " AND YEAR(`release_date`) = $year";
-}
-$runtime = isset($_GET['Runtime']) ? $_GET['Runtime'] : '';
- if(isset($_GET['Runtime'])){
-    $runtime = $_GET['Runtime'];
-    if ($runtime == 0) {
-        $query .= " AND duration_min < 90"; // Under 90 minutes
-    } elseif ($runtime == 90) {
-        $query .= " AND duration_min BETWEEN 90 AND 120"; // 90 to 120 minutes
-    } elseif ($runtime == 120) {
-        $query .= " AND duration_min > 120"; // Over 120 minutes
-    }
-}
-$genre = (isset($_GET['Genre']))? $_GET['Genre']: null;
-if($genre != null){
-    $query .= " AND `genre`=$genre";
-}
-
-$query .= ";";
-$result = mysqli_query($con, $query);
 ?>
 
 <div class="container">
@@ -145,6 +123,8 @@ $result = mysqli_query($con, $query);
         <?php
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
+                $watchlistadd = false;
+
         ?>
                 <div class="col-lg-2 col-md-4 my-2">
                     <div class="card border-0 shadow" style="width: 200px; margin:auto; height: 460px;">
@@ -163,6 +143,7 @@ $result = mysqli_query($con, $query);
                             <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating: <?php echo htmlspecialchars($row['rating']); ?></li>
                             <span style="font-size: 0.8rem; margin-left: 5px;">
                                 <?php
+                                $movie_id = $row['movie_id'];
                                 $rating = $row['rating'];
                                 $fullStars = floor($rating);
                                 $halfStar = ($rating - $fullStars) >= 0.5;
@@ -183,8 +164,31 @@ $result = mysqli_query($con, $query);
                         </ul>
                         <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
                             <div class="d-flex justify-content-evenly">
-                                <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Add to Watchlist</a>
-                                <a href="#" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none d-flex justify-content-center align-items-center" style="height: 45px;">Details</a>
+                                <?php if ($row['user_id'] == $user_id && $user_id != NULL): ?>
+                                    <a href="#" class="btn btn-sm d-flex justify-content-center align-items-center" style="background-color: white; height: 40px ; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center; display: inline-block;">Already Added</a>
+                                    <a href="details.php" class="btn btn-sm d-flex justify-content-center align-items-center"
+                                        style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; display: inline-block; margin-left :8px;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Details
+                                    </a>
+                                <?php else: ?>
+                                    <form action="movies.php" method="POST">
+                                        <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
+                                            class="btn btn-sm d-flex justify-content-center align-items-center"
+                                            style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center; display: inline-block;"
+                                            onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                            onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                            Add to Watchlist
+                                        </button>
+                                    </form>
+                                    <a href="details.php" class="btn btn-sm d-flex justify-content-center align-items-center"
+                                        style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; display: inline-block; margin-left :8px;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Details
+                                    </a>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
@@ -196,7 +200,7 @@ $result = mysqli_query($con, $query);
         }
         ?>
     </div
-</div>
+        </div>
     <?php
     include("footer.php");
     ?>

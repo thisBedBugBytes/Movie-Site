@@ -6,7 +6,7 @@ include('inc/scripts.php');
 
 #adminLogin();
 $success = false;
-#session_start();
+session_start();
 
 
 if(isset($_POST['done'])){
@@ -20,19 +20,19 @@ if(isset($_POST['done'])){
     $poster = $_POST['poster-url'];
    
 
-    #$sql = "INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ('$title','$director', '$description','$release_date', '$runtime', '$genre', '$poster')";
-   # $sql_run = mysqli_query($con,$sql);
-$stmt = $con->prepare("INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
-mysqli_stmt_bind_param($stmt, "ssssiss", $title,$director, $description,$release_date, $runtime, $genre, $poster);
-    #if ($sql_run) {
-#    $_SESSION['success'] = true; 
-#       echo "<script>alert('New Movie Added:D');</script>";
-#        redirect('movies.php');
-#       session_destroy();
- #   }
- if($stmt->execute()){
-    echo "Movie Inserted Successfully!";
- }
+    $sql = "INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ('$title','$director', '$description','$release_date', '$runtime', '$genre', '$poster')";
+    $sql_run = mysqli_query($con,$sql);
+#$stmt = $con->prepare("INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
+#mysqli_stmt_bind_param($stmt, "ssssiss", $title,$director, $description,$release_date, $runtime, $genre, $poster);
+    if ($sql_run) {
+    $_SESSION['success'] = true; 
+       echo "<script>alert('New Movie Added:D');</script>";
+        redirect('movies.php');
+       session_destroy();
+   }
+ #if($stmt->execute()){
+    #echo "<script>alert('Movie Inserted Successfully!');</script>";
+ #}
   else {
         echo "<script>alert('Error,Server Down :(');</script>"; 
     }
@@ -210,7 +210,7 @@ mysqli_stmt_bind_param($stmt, "ssssiss", $title,$director, $description,$release
                                         </div>
                                         <div class="mb-3">
                                             <label class="form-label fw-bold">Poster URL</label>
-                                            <input type="text" class="form-control" id="poster-url" name="poster-url" required>
+                                            <input type="url" class="form-control" id="poster-url" name="poster-url" required>
                                         </div>
                                 </div>
                                 <div class="modal-footer">
