@@ -1,8 +1,5 @@
 <!--- Navigation Bar --->
-<?php 
-include('inc/db_config_gen.php');
-
-session_start(); ?>
+<?php session_start(); ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-lg-3 py-lg-3 shadow sm sticky top">
   <div class="container-fluid">
     <a class="navbar-brand me-10 fw-bold fs-1 oswald-regular " href="index.php">CineBox</a>
@@ -56,14 +53,12 @@ session_start(); ?>
           </ul>
         </li>
       </ul>
-      <form class="d-flex" method="post" action="movie/movies.php">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search">
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-secondary shadow-none" type="submit">
           <i class="fas fa-search"></i>
         </button>
       </form>
-    
-
     </div>
     <div class="modal fade" id="create-account" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">

@@ -69,12 +69,12 @@
             <a class="nav-link active me-2" href="#">About us</a>
             </li>
         </ul>
-    
-        <form class="d-flex" method="post" action="">
-            <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search" name="search">
+
+        <form class="d-flex">
+            <input class="form-control me-2 " type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-light me-5 pe-2" type="submit"><i class="bi bi-search-heart"></i></button>
         </form>
-       
+
         <div class="d-flex">
         
         <button type="button" class="btn btn-outline-light shadow-none mt-md-3 me-lg-3 me-2" data-bs-toggle="modal" data-bs-target="#loginModal">

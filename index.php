@@ -52,6 +52,7 @@ include('admin/inc/db_config.php');
                 <img src="https://m.media-amazon.com/images/M/MV5BNDRjZmZhZTEtMzdlYi00MmE0LTgyZGMtZDc5ZWI0MjcxZTliXkEyXkFqcGc@._V1_.jpg" />
             </div>
         -->
+
         </div>
         <div class="swiper-pagination"></div>
     </div>
