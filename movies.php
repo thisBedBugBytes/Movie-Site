@@ -59,16 +59,16 @@ include('admin/inc/links.php');
                         <u>Genre</u>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="genreDropdown">
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Action'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Action</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Animation'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Animation</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Comedy'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Comedy</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Drama'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Drama</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Horror'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Horror</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Mystery'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Mystery</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Romance'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Romance</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Sci-Fi'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Sci-Fi</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Genre='Thriller'&Year=<?php echo $_GET['Year'] ?? ''; ?>&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">Thriller</a></li>
-                    </ul> 
+                        <li><a class="dropdown-item outfit-regular" href="#">Action</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Animation</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Comedy</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Drama</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Horror</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Mystery</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Romance</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Sci-Fi</a></li>
+                        <li><a class="dropdown-item outfit-regular" href="#">Thriller</a></li>
+                    </ul>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle outfit-regular" href="#" id="yearDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#E5E4E2">
@@ -80,7 +80,6 @@ include('admin/inc/links.php');
                         <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2022&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2022</a></li>
                         <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2021&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2021</a></li>
                         <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2020&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2020</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="movies.php?Year=2019&Runtime=<?php echo $_GET['Runtime'] ?? ''; ?>">2019</a></li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
@@ -126,10 +125,7 @@ $runtime = isset($_GET['Runtime']) ? $_GET['Runtime'] : '';
     
 $sql .= " AND `duration_min` in (SELECT `duration_min` FROM `movies` WHERE `duration_min` > $mintime AND `duration_min` < $maxtime)";
 }
-$genre = (isset($_GET['Genre']))? $_GET['Genre']: null;
-if($genre != null){
-    $sql .= " AND `genre`=$genre";
-}
+
 
 $sql .= ";";
 $result = mysqli_query($con, $sql);
