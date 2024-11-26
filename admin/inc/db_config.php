@@ -3,7 +3,7 @@
     #arguments for connection
     $host_name = 'localhost';
     $user_name = 'root';
-    $pass = '04042018';
+    $pass = '';
     $db = 'CineBox';
 
     #php object for db connedction
