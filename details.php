@@ -127,35 +127,16 @@ include('admin/inc/scripts.php');
                         </div>
                     </div>
 
-                    <div style="max-width: 900px; margin: auto; margin-top: 20px; color: white; display: flex; flex-direction: column;">
+                    <div class="oswald-regular" style="max-width: 900px; margin: auto; margin-top: 20px; color: white; display: flex; flex-direction: column;">
 
-                        <h2>Reviews</h2>
-                        <div style="display: flex; flex-direction: column;">
-
-                            <div style="background: linear-gradient(135deg, #7d7d7d, #f3e03b); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); color: black;">
-                                <h3 style="margin: 0 0 10px 0;">User 1</h3>
-                                <p style="margin: 0;"><strong>Rating:</strong> 9/10</p>
-                                <p style="margin: 0;">Great movie! The plot was engaging and the acting was top-notch.</p>
-                            </div>
-
-                            <div style="background: linear-gradient(135deg, #7d7d7d, #f3e03b); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); color: black;">
-                                <h3 style="margin: 0 0 10px 0;">User 2</h3>
-                                <p style="margin: 0;"><strong>Rating:</strong> 7/10</p>
-                                <p style="margin: 0;">Good film, but it felt a bit long in some parts.</p>
-                            </div>
-
-                            <div style="background: linear-gradient(135deg, #7d7d7d, #f3e03b); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); color: black;">
-                                <h3 style="margin: 0 0 10px 0;">User 3</h3>
-                                <p style="margin: 0;"><strong>Rating:</strong> 8/10</p>
-                                <p style="margin: 0;">Enjoyed the cinematography and the soundtrack!</p>
-                            </div>
-
-                            <div style="background: linear-gradient(135deg, #7d7d7d, #f3e03b); border-radius: 8px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); color: black;">
-                                <h3 style="margin: 0 0 10px 0;">User 4</h3>
-                                <p style="margin: 0;"><strong>Rating:</strong> 10/10</p>
-                                <p style="margin: 0;">A masterpiece! I would watch it again.</p>
-                            </div>
-                        </div>
+                        <h2 class="oswald-regular">Reviews</h2>
+                        <ul class="list-group list-group-flush" style="width: 400px;">
+  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">An item</li>
+  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">A second item</li>
+  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">A third item</li>
+  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">A fourth item</li>
+  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">And a fifth one</li>
+</ul>
                     </div>
                 </div>
             </div>
