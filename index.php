@@ -20,10 +20,10 @@ include('admin/inc/db_config.php');
           
             $description = htmlspecialchars($row['description']);
             
-            $movie_id = $row['movie_id'];         // Primary key, integer
+            $movie_id = $row['movie_id'];         
            
-            $image = $row['poster'];             // Poster image URL, varchar(255)
-            $rating = $row['rating'];             // Rating, decimal(2,1)
+            $image = $row['poster'];             
+            $rating = $row['rating'];            
             echo '<div class="swiper-slide">';
             echo '<img src="'.$image.'"/>';
             echo'</div>';
@@ -61,7 +61,7 @@ include('admin/inc/db_config.php');
 <h1 class="text-center me-10 py-4 px-3 fw-bold fs-1 oswald-regular" style="color:#3bb6d5; margin-bottom: 20px;">Catalog your cine journey!!!</h1>
 <div class="container">
     <div style="display: flex; justify-content: center; margin-top: 20px;">
-        <form action="user/signup.php" method="get">
+        <form>
             <button
                 class="btn btn-outline-secondary shadow-none text-center outfit-regular "
                 type="button"

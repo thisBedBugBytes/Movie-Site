@@ -21,11 +21,12 @@ $result = mysqli_query($con, $sql);
             while ($row = mysqli_fetch_assoc($result)) {
         ?>
                 <div class="col-lg-2 col-md-4 mt-5 my-2">
-                    <div class="card border-0 shadow" style="width: 200px; margin:auto; height: 300px;">
-                        <a href="details.php?id=<?php echo htmlspecialchars($row['movie_id']); ?>">
+                    <form action="details.php" method="get" style="border: none; margin: auto; height: 300px;">
+                        <input type="hidden" name="movie_id" value="<?php echo htmlspecialchars($row['movie_id']); ?>">
+                        <div class="card border-0 shadow" style="width: 200px; height: 300px; cursor: pointer;" onclick="this.closest('form').submit();">
                             <img src="<?php echo htmlspecialchars($row['poster']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['title']); ?>" style="width: 100%; height: auto; object-fit: cover;">
-                        </a>
-                    </div>
+                        </div>
+                    </form>
                 </div>
         <?php
             }

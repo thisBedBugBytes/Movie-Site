@@ -92,60 +92,108 @@ include('admin/inc/scripts.php');
     </style>
 </head>
 
+<?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $movie_id = $_GET['movie_id'];
+    $user_id = $_SESSION['userID'];
+    $sql = "SELECT * from movies where movie_id = '$movie_id';";
+    $result = mysqli_query($con, $sql);
+    $sql2 = "SELECT m.movie_id as movie_id, title, director, genre, poster, duration_min, description, review, m.rating as rating , release_date, user_id, genre  FROM movies as m LEFT JOIN diary as d on m.movie_id=d.movie_id where m.movie_id = '$movie_id';";
+    $result2 = mysqli_query($con, $sql2);
+}
+
+
+?>
+?>
+
 <body>
     <div class="container-fluid">
         <div class="row">
+            <?php
+            if (mysqli_num_rows($result) > 0)
+                $row = mysqli_fetch_assoc($result);
+            $watchlistadd = false;
+
+            ?>
             <div class="col-lg-12 ms-auto p-3 overflow-hidden">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <div style="max-width: 850px; height:auto; margin: auto; background: rgba(255,255,255, 0.1); padding: 35px;  color: white; display: flex;">
 
                         <div style="flex: 2; margin-right: 20px;">
-                            <h1 style="font-size: 3.5em; margin-bottom: 10px;">Movie Title</h1>
+                            <h1 style="font-size: 3em; margin-bottom: 10px;"><?php echo htmlspecialchars($row['title']); ?></h1>
                             <div style="margin-bottom: 15px;">
-                                <strong style="font-size: 1.0em; display: inline-block; width: 110px;">Release Date:</strong>  DD-MM-YYYY
+                                <strong style="font-size: 1.0em; display: inline-block; width: 110px;">Release Date:</strong> <?php echo htmlspecialchars($row['release_date']); ?>
                             </div>
                             <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 110px;">Genre:</strong> Action, Drama
+                                <strong style="display: inline-block; width: 110px;">Genre:</strong><?php echo htmlspecialchars($row['genre']); ?>
                             </div>
                             <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 110px;">Runtime:</strong> 120 min
+                                <strong style="display: inline-block; width: 110px;">Runtime:</strong><?php echo htmlspecialchars($row['duration_min']); ?> min
                             </div>
                             <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 110px;">Director:</strong> Director Name
+                                <strong style="display: inline-block; width: 110px;">Director:</strong><?php echo htmlspecialchars($row['director']); ?>
                             </div>
                             <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 110px;">Rating:</strong> 8.5/10
+                                <strong style="display: inline-block; width: 110px;">Rating:</strong><span style="font-size: 0.8rem; margin-left: 0px;">
+                                    <?php
+                                    $movie_id = $row['movie_id'];
+                                    $rating = $row['rating'];
+                                    $fullStars = floor($rating);
+                                    $halfStar = ($rating - $fullStars) >= 0.5;
+
+                                    for ($i = 0; $i < $fullStars; $i++) {
+                                        echo '<i class="bi bi-star-fill"></i>';
+                                    }
+
+                                    if ($halfStar) {
+                                        echo '<i class="bi bi-star-half"></i>';
+                                    }
+
+                                    for ($i = $fullStars + ($halfStar ? 1 : 0); $i < 5; $i++) {
+                                        echo '<i class="bi bi-star"></i>';
+                                    }
+                                    ?>
+                                </span>
                             </div>
                             <div style="margin-bottom: 15px;">
                                 <strong style="display: inline-block; width: 100px;">Description:</strong>
-                                <p style="margin: 0;">A brief summary of the movie's plot goes here. This should provide an overview without revealing spoilers.</p>
+                                <p style="margin: 0;"><?php echo htmlspecialchars($row['description']); ?></p>
                             </div>
                             <form action="movies.php" method="POST">
-                                        <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
-                                            class="btn btn-sm d-flex justify-content-center align-items-center"
-                                            style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 20px 20px; font-weight: bold; text-align: center; display: inline-block;"
-                                            onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
-                                            onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
-                                            Add to Diary
-                                        </button>
-                                    </form>
+                                <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
+                                    class="btn btn-sm d-flex justify-content-center align-items-center"
+                                    style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 20px 20px; font-weight: bold; text-align: center; display: inline-block;"
+                                    onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                    onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                    Add to Diary
+                                </button>
+                            </form>
                         </div>
 
                         <div>
-                            <img src="https://m.media-amazon.com/images/M/MV5BMzUzNDM2NzM2MV5BMl5BanBnXkFtZTgwNTM3NTg4OTE@._V1_.jpg" alt="Movie Title" style="width: 250px; height: auto; border-radius: 8px;">
+                            <img src=<?php echo htmlspecialchars($row['poster']); ?> alt="<?php echo htmlspecialchars($row['title']); ?>" style="width: 250px; height: auto; border-radius: 8px;">
                         </div>
                     </div>
 
                     <div class="oswald-regular" style="max-width: 900px; margin: auto; margin-top: 20px; color: white; display: flex; flex-direction: column;">
-
                         <h2 class="oswald-regular">Reviews</h2>
-                        <ul class="list-group list-group-flush" style="width: 400px;">
-  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">An item</li>
-  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">A second item</li>
-  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">A third item</li>
-  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">A fourth item</li>
-  <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">And a fifth one</li>
-</ul>
+                        <ul class="list-group list-group-flush" style="width: 500px;">
+                            <?php
+                            if (mysqli_num_rows($result2) > 0) {
+                                while ($row2 = mysqli_fetch_assoc($result2)) {
+                            ?>
+                                    <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">
+                                        <blockquote style="font-style: italic; margin: 0;">
+                                            &ldquo;<?php echo htmlspecialchars($row2['review']); ?>&rdquo;
+                                        </blockquote>
+                                    </li> 
+                                    <?php
+                                        }
+                                    }
+                                            ?>
+                        </ul>
                     </div>
                 </div>
             </div>
