@@ -78,7 +78,9 @@ if (isset($_POST['login'])) {
 
     if(mysqli_num_rows($run)>0){
         while($row = mysqli_fetch_assoc($run)){
-            if(password_verify($password,$row['password'])){
+            echo $row['password'];
+            #if(password_verify($password,$row['password'])){
+            if($password == $row['password'] ){
                 session_start();
                 $_SESSION['userLogin']  = true;
                 $_SESSION['userID'] = $row['user_id'];
