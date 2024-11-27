@@ -188,11 +188,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                                         <blockquote style="font-style: italic; margin: 0;">
                                             &ldquo;<?php echo htmlspecialchars($row2['review']); ?>&rdquo;
                                         </blockquote>
-                                    </li> 
-                                    <?php
-                                        }
-                                    }
-                                            ?>
+                                    </li>
+                            <?php
+                                }
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>
