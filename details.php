@@ -19,28 +19,21 @@ include('admin/inc/scripts.php');
             max-width: 900px;
             margin: auto;
             background: #444;
-            /* Darker background for the profile card */
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
             color: white;
-            /* White text color */
             display: flex;
-            /* Use flexbox for layout */
         }
 
         .info {
             flex: 2;
-            /* Allow info section to take more space */
             margin-right: 20px;
-            /* Space between info and poster */
         }
 
         .movie-poster img {
             width: 250px;
-            /* Set a larger width for the poster */
             height: auto;
-            /* Maintain aspect ratio */
             border-radius: 8px;
         }
 
@@ -52,42 +45,64 @@ include('admin/inc/scripts.php');
         .info strong {
             display: inline-block;
             width: 100px;
-            /* Fixed width for labels */
         }
 
         .reviews {
             margin-top: 20px;
-            /* Space above reviews */
             display: flex;
-            /* Use flexbox for alignment */
             flex-direction: column;
-            /* Stack review cards vertically */
             align-items: flex-end;
-            /* Align cards to the right */
         }
 
         .review-card {
             background: linear-gradient(135deg, #7d7d7d, #f3e03b);
-            /* Grey-yellow gradient */
             border-radius: 8px;
             padding: 15px;
             margin-bottom: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             color: black;
-            /* Black text color for reviews */
             width: 300px;
-            /* Fixed width for review cards */
         }
 
         .review-card h3 {
             margin: 0 0 10px 0;
-            /* Margin for review title */
             font-size: 1.2em;
         }
 
         .review-card p {
             margin: 0;
-            /* Remove margin for paragraph */
+        }
+
+        .modal-content {
+            background-color: #343a40;
+        }
+
+        .rating {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .rating input {
+            display: none;
+        }
+
+        .rating label {
+            cursor: pointer;
+            color: #FFD700;
+        }
+
+        .rating label:before {
+            content: '\2606';
+        }
+
+        .rating label:hover:before,
+        .rating input:checked~label:before {
+            content: '\2605';
+        }
+
+        .rating input:checked~label {
+            color: #FFD700;
         }
     </style>
 </head>
@@ -95,8 +110,28 @@ include('admin/inc/scripts.php');
 <?php
 session_start();
 
+if (isset($_POST['add_diary'])) {
+    if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] == true) {
+        $review = $_POST['review'];
+        $rating = $_POST['rating'];
+        $user_id = $_SESSION['userID'];
+        $movie_id = $_SESSION['movie_id'];
+        echo "<script>alert('$review $rating $user_id $movie_id');</script>";
+
+        $sql = "INSERT INTO  `diary` (`movie_id`, `user_id`, `review`, `rating`) VALUES ('$movie_id', '$user_id', '$review', $rating)";
+        $sql_run = mysqli_query($con, $sql);
+        if ($sql_run) {
+            echo "<script>alert('Added to your diary:D');</script>";
+            redirect('details.php');
+        } else {
+            redirect('login.php');
+        }
+    }
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $movie_id = $_GET['movie_id'];
+    $_SESSION['movie_id'] = $movie_id;
     $user_id = $_SESSION['userID'];
     $sql = "SELECT * from movies where movie_id = '$movie_id';";
     $result = mysqli_query($con, $sql);
@@ -161,17 +196,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                                 <strong style="display: inline-block; width: 100px;">Description:</strong>
                                 <p style="margin: 0;"><?php echo htmlspecialchars($row['description']); ?></p>
                             </div>
-                            <form action="movies.php" method="POST">
-                                <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
-                                    class="btn btn-sm d-flex justify-content-center align-items-center"
-                                    style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 20px 20px; font-weight: bold; text-align: center; display: inline-block;"
-                                    onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
-                                    onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
-                                    Add to Diary
-                                </button>
-                            </form>
+                            <button type="button"
+                                data-bs-toggle="modal" data-bs-target="#add-diary"
+                                class="btn btn-sm d-flex justify-content-center align-items-center"
+                                style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 20px 20px; font-weight: bold; text-align: center; display: inline-block;"
+                                onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                Add to Diary
+                            </button>
                         </div>
-
                         <div>
                             <img src=<?php echo htmlspecialchars($row['poster']); ?> alt="<?php echo htmlspecialchars($row['title']); ?>" style="width: 250px; height: auto; border-radius: 8px;">
                         </div>
@@ -197,6 +230,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="add-diary" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Add to Diary</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="add_diary" method="POST" action="details.php">
+                        <div class="modal-body" style="color: white;">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Review</label>
+                                <input type="text" class="form-control" id="review" name="review">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Rating</label>
+                                <div class="rating" style="font-size: 2rem; max-width:45px; line-height: 1;">
+                                    <input type="radio" id="star5" name="rating" value="1" />
+                                    <label for="star5" title="5 stars"></label>
+
+                                    <input type="radio" id="star4" name="rating" value="2" />
+                                    <label for="star4" title="4 stars"></label>
+
+                                    <input type="radio" id="star3" name="rating" value="3" />
+                                    <label for="star3" title="3 stars"></label>
+
+                                    <input type="radio" id="star2" name="rating" value="4" />
+                                    <label for="star2" title="2 stars"></label>
+
+                                    <input type="radio" id="star1" name="rating" value="5" />
+                                    <label for="star1" title="1 star"></label>
+                                </div>
+                            </div>
+                            <input type="hidden" name="movie_id" value=<?php echo htmlspecialchars($row['movie_id']); ?>>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" name="add_diary" class="btn btn-primary">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
 
