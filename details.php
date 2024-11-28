@@ -126,6 +126,20 @@ if (isset($_POST['add_diary'])) {
 
         $sql = "INSERT INTO  `diary` (`movie_id`, `user_id`, `review`, `rating`) VALUES ('$movie_id', '$user_id', '$review', $rating)";
         $sql_run = mysqli_query($con, $sql);
+        $sql2 = "UPDATE movies AS m\n"
+
+        . "JOIN (\n"
+    
+        . "    SELECT movie_id, AVG(rating) AS average_rating\n"
+    
+        . "    FROM diary\n"
+    
+        . "    GROUP BY movie_id\n"
+    
+        . ") AS avg_ratings ON m.movie_id = avg_ratings.movie_id\n"
+    
+        . "SET m.rating = avg_ratings.average_rating;";
+        $sql_run2 = mysqli_query($con, $sql2);
         if ($sql_run) {
             echo "<script>alert('Added to your diary:D');</script>";
             redirect('details.php');

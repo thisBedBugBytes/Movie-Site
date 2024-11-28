@@ -10,47 +10,40 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <?php if (isset($_SESSION['userName'])): ?>
           <li class="nav-item">
-            <a class="nav-link active me-2 outfit-regular" aria-current="page" href="#">Welcome <?php echo htmlspecialchars($_SESSION['userName']); ?></a>
+            <a class="nav-link active me-2 outfit-regular fs-6" aria-current="page" href="#">Welcome <?php echo htmlspecialchars($_SESSION['userName']); ?></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-2 outfit-regular" href="logout.php">Logout</a>
+            <a class="nav-link me-2 outfit-regular fs-6" href="logout.php">Logout</a>
           </li>
         <?php else: ?>
           <li class="nav-item">
-            <a class="nav-link me-2 outfit-regular" data-bs-toggle="modal" data-bs-target="#create-account">Create Account</a>
+            <a class="nav-link me-2 outfit-regular fs-6" data-bs-toggle="modal" data-bs-target="#create-account">Create Account</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link me-2 outfit-regular" href="login.php">Login</a>
+            <a class="nav-link me-2 outfit-regular fs-6" href="login.php">Login</a>
           </li>
         <?php endif; ?>
         <li class="nav-item">
-          <a class="nav-link me-2 outfit-regular" href="movies.php">Movies</a>
+          <a class="nav-link me-2 outfit-regular fs-6" href="movies.php">Movies</a>
         </li>
         <?php if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] == true): ?>
           <li class="nav-item">
-            <a class="nav-link me-2 outfit-regular" href="watchlist.php">Watchlist</a>
+            <a class="nav-link me-2 outfit-regular fs-6" href="watchlist.php">Watchlist</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-2 outfit-regular fs-6" href="diary.php">Diary</a>
           </li>
         <?php else: ?>
           <li class="nav-item">
-            <a class="nav-link me-2 outfit-regular" href="login.php">Watchlist</a>
+            <a class="nav-link me-2 outfit-regular fs-6" href="login.php">Watchlist</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link me-2 outfit-regular fs-6" href="login.php">Diary</a>
           </li>
         <?php endif; ?>
 
         <li class="nav-item">
-          <a class="nav-link me-2 outfit-regular" href="admin/index.php">Admin</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
+          <a class="nav-link me-2 outfit-regular fs-6" href="admin/index.php">Admin</a>
         </li>
       </ul>
       <form class="d-flex">

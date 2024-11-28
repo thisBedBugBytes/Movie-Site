@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Nov 26, 2024 at 08:57 PM
+-- Generation Time: Nov 28, 2024 at 05:16 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -61,9 +61,15 @@ CREATE TABLE `diary` (
 --
 
 INSERT INTO `diary` (`movie_id`, `user_id`, `rating`, `review`, `log_time`) VALUES
+(1, 2, 4.0, 'very entertaining', '2024-11-28'),
+(2, 2, 4.0, 'khub bhalo', '2024-11-28'),
+(2, 21, 2.0, 'shit movie', '2024-11-28'),
+(3, 2, 5.0, 'nice', '2024-11-28'),
+(61, 2, 3.0, '', '2024-11-28'),
 (62, 2, 4.0, 'Spicing things up with the wrinkle of teenage angst, Inside Out 2 clears the head and warms the heart by living up to its predecessor\'s emotional intelligence.\n\nSpicing things up with the wrinkle of teenage angst, Inside Out 2 clears the head and warms the heart by living up to its predecessor\'s emotional intelligence.\n\nSpicing things up with the wrinkle of teenage angst, Inside Out 2 clears the head and warms the heart by living up to its predecessor\'s emotional intelligence.\n\n', '2024-11-27'),
 (62, 18, 2.0, 'A funny adventure full of positive messages for the whole family, this Pixar sequel hits you right in the feels.', '2024-11-27'),
-(63, 2, 3.0, NULL, '2024-11-27');
+(63, 2, 3.0, NULL, '2024-11-27'),
+(63, 21, 4.0, 'best', '2024-11-28');
 
 -- --------------------------------------------------------
 
@@ -88,12 +94,12 @@ CREATE TABLE `movies` (
 --
 
 INSERT INTO `movies` (`movie_id`, `title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`, `rating`) VALUES
-(1, 'Stree 2: Sarkate Ka Aatank', 'Amar Kaushik', 'After the events of Stree, the town of Chanderi is being haunted again. This time, women are mysteriously abducted by a terrifying headless entity. Once again, it\'s up to Vicky and his friends to save their town and loved ones.', '2024-08-15', 149, 'Horror', 'https://upload.wikimedia.org/wikipedia/en/a/a1/Stree_2.jpg', NULL),
-(2, 'Joker: Folie à Deux', 'Todd Phillips', 'Struggling with his dual identity, failed comedian Arthur Fleck meets the love of his life, Harley Quinn, while incarcerated at Arkham State Hospital.\r\n\r\n', '2024-10-04', 138, 'Drama', 'https://m.media-amazon.com/images/M/MV5BNTRlNmU1NzEtODNkNC00ZGM3LWFmNzQtMjBlMWRiYTcyMGRhXkEyXkFqcGc@._V1_.jpg', NULL),
-(3, 'La La Land', 'Damien Chazelle', 'When Sebastian, a pianist, and Mia, an actress, follow their passion and achieve success in their respective fields, they find themselves torn between their love for each other and their careers.', '2016-12-09', 128, 'Drama', 'https://m.media-amazon.com/images/M/MV5BMzUzNDM2NzM2MV5BMl5BanBnXkFtZTgwNTM3NTg4OTE@._V1_.jpg', NULL),
-(61, 'Dunkirk', 'Christopher Nolan', 'During World War II, soldiers from the British Empire, Belgium and France try to evacuate from the town of Dunkirk during a arduous battle with German forces.', '2017-07-21', 106, 'Action', 'https://m.media-amazon.com/images/M/MV5BZWU5ZjJkNTQtMzQwOS00ZGE4LWJkMWUtMGQ5YjdiM2FhYmRhXkEyXkFqcGc@._V1_.jpg', NULL),
-(62, 'Inside Out 2', 'Kelsey Mann', 'Joy, Sadness, Anger, Fear and Disgust have been running a successful operation by all accounts. However, when Anxiety shows up, they aren\'t sure how to feel.', '2024-06-14', 96, 'Animation', 'https://m.media-amazon.com/images/M/MV5BODI0OGRjYmEtNzFlNi00NTRlLTg3YTItM2ZkOGYyYTVhYjlkXkEyXkFqcGc@._V1_.jpg', NULL),
-(63, 'Taxi Driver', 'Martin Scorsese', 'Travis, an ex-marine and Vietnam veteran, works as a taxi driver in New York City. One day, he decides to save an underage prostitute from her pimp in an effort to clean the city of its corruption.', '1976-02-08', 114, 'Thriller', 'https://m.media-amazon.com/images/M/MV5BZDNhMGYwM2UtMTdlZS00MGQ1LWI2YzAtODY5YWI1MjYyNzRmXkEyXkFqcGc@._V1_.jpg', NULL);
+(1, 'Stree 2: Sarkate Ka Aatank', 'Amar Kaushik', 'After the events of Stree, the town of Chanderi is being haunted again. This time, women are mysteriously abducted by a terrifying headless entity. Once again, it\'s up to Vicky and his friends to save their town and loved ones.', '2024-08-15', 149, 'Horror', 'https://upload.wikimedia.org/wikipedia/en/a/a1/Stree_2.jpg', 4.0),
+(2, 'Joker: Folie à Deux', 'Todd Phillips', 'Struggling with his dual identity, failed comedian Arthur Fleck meets the love of his life, Harley Quinn, while incarcerated at Arkham State Hospital.\r\n\r\n', '2024-10-04', 138, 'Drama', 'https://m.media-amazon.com/images/M/MV5BNTRlNmU1NzEtODNkNC00ZGM3LWFmNzQtMjBlMWRiYTcyMGRhXkEyXkFqcGc@._V1_.jpg', 3.0),
+(3, 'La La Land', 'Damien Chazelle', 'When Sebastian, a pianist, and Mia, an actress, follow their passion and achieve success in their respective fields, they find themselves torn between their love for each other and their careers.', '2016-12-09', 128, 'Drama', 'https://m.media-amazon.com/images/M/MV5BMzUzNDM2NzM2MV5BMl5BanBnXkFtZTgwNTM3NTg4OTE@._V1_.jpg', 5.0),
+(61, 'Dunkirk', 'Christopher Nolan', 'During World War II, soldiers from the British Empire, Belgium and France try to evacuate from the town of Dunkirk during a arduous battle with German forces.', '2017-07-21', 106, 'Action', 'https://m.media-amazon.com/images/M/MV5BZWU5ZjJkNTQtMzQwOS00ZGE4LWJkMWUtMGQ5YjdiM2FhYmRhXkEyXkFqcGc@._V1_.jpg', 3.0),
+(62, 'Inside Out 2', 'Kelsey Mann', 'Joy, Sadness, Anger, Fear and Disgust have been running a successful operation by all accounts. However, when Anxiety shows up, they aren\'t sure how to feel.', '2024-06-14', 96, 'Animation', 'https://m.media-amazon.com/images/M/MV5BODI0OGRjYmEtNzFlNi00NTRlLTg3YTItM2ZkOGYyYTVhYjlkXkEyXkFqcGc@._V1_.jpg', 3.0),
+(63, 'Taxi Driver', 'Martin Scorsese', 'Travis, an ex-marine and Vietnam veteran, works as a taxi driver in New York City. One day, he decides to save an underage prostitute from her pimp in an effort to clean the city of its corruption.', '1976-02-08', 114, 'Thriller', 'https://m.media-amazon.com/images/M/MV5BZDNhMGYwM2UtMTdlZS00MGQ1LWI2YzAtODY5YWI1MjYyNzRmXkEyXkFqcGc@._V1_.jpg', 3.5);
 
 -- --------------------------------------------------------
 
@@ -143,7 +149,10 @@ CREATE TABLE `watchlist` (
 
 INSERT INTO `watchlist` (`movie_id`, `user_id`) VALUES
 (1, 2),
+(2, 2),
+(2, 21),
 (3, 2),
+(3, 21),
 (62, 2);
 
 --

@@ -142,12 +142,12 @@ $result2 = mysqli_query($con, $sql2);
                             <h6 class="card-title" style="font-size: .8rem;">Directed By: <?php echo htmlspecialchars($row2['director']); ?></h6>
                             <h6 class="card-title" style="font-size: .8rem;">
                                 <i class="bi bi-clock" style="margin-right: 5px;"></i>
-                                <?php echo htmlspecialchars($row['duration_min']); ?> minutes
+                                <?php echo htmlspecialchars($row2['duration_min']); ?> minutes
                             </h6>
                             <ul class="list-group list-group-flush bg-dark text-white" style="padding: 0.2rem;">
                                 <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Release: <?php echo htmlspecialchars($row2['release_date']); ?></li>
                                 <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Genre: <?php echo htmlspecialchars($row2['genre']); ?></li>
-                                <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating: <?php echo htmlspecialchars($row2['rating']); ?></li>
+                                <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating:
                                 <span style="font-size: 0.8rem; margin-left: 5px;">
                                     <?php
                                     for ($i = 0; $i < $fullStars; $i++) {
@@ -162,7 +162,7 @@ $result2 = mysqli_query($con, $sql2);
                                         echo '<i class="bi bi-star"></i>';
                                     }
                                     ?>
-                                </span>
+                                </span></li>
                             </ul>
                             <div class="mt-auto d-flex justify-content-evenly">
                                 <?php if ($isInWatchlist): ?>
