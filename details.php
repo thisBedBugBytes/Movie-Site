@@ -127,8 +127,7 @@ if (isset($_POST['add_diary'])) {
             echo "<script>alert('Added to your diary:D');</script>";
             redirect('details.php');
         }
-    }
-    else {
+    } else {
         redirect('login.php');
     }
 }
@@ -139,8 +138,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' || isset($_SESSION['movie_id'])) {
     $user_id = $_SESSION['userID'];
     $sql = "SELECT * from movies where movie_id = '$movie_id';";
     $result = mysqli_query($con, $sql);
-    $sql2 = "SELECT m.movie_id as movie_id, title, director, genre, poster, duration_min, description, review, m.rating as rating , release_date, user_id, genre  FROM movies as m LEFT JOIN diary as d on m.movie_id=d.movie_id where m.movie_id = '$movie_id';";
+    $sql2 = "SELECT m.movie_id as movie_id, title, director, genre, poster, duration_min, description, review, m.rating as rating , release_date, user_id, genre  FROM movies as m LEFT JOIN diary as d on m.movie_id=d.movie_id where m.movie_id = '$movie_id' and user_id = '$user_id';";
     $result2 = mysqli_query($con, $sql2);
+    $isInDiary = mysqli_num_rows($result2) > 0;
 }
 
 
@@ -151,133 +151,132 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' || isset($_SESSION['movie_id'])) {
     <div class="container-fluid">
         <div class="row">
             <?php
-            if (mysqli_num_rows($result) > 0)
+            if (mysqli_num_rows($result) > 0) {
                 $row = mysqli_fetch_assoc($result);
-
             ?>
-            <div class="col-lg-12 ms-auto p-3 overflow-hidden">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <div style="max-width: 850px; height:auto; margin: auto; background: rgba(255,255,255, 0.1); padding: 35px;  color: white; display: flex;">
-
-                        <div style="flex: 2; margin-right: 20px;">
-                            <h1 style="font-size: 3em; margin-bottom: 10px;"><?php echo htmlspecialchars($row['title']); ?></h1>
-                            <div style="margin-bottom: 15px;">
-                                <strong style="font-size: 1.0em; display: inline-block; width: 110px;">Release Date:</strong> <?php echo htmlspecialchars($row['release_date']); ?>
-                            </div>
-                            <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 110px;">Genre:</strong><?php echo htmlspecialchars($row['genre']); ?>
-                            </div>
-                            <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 110px;">Runtime:</strong><?php echo htmlspecialchars($row['duration_min']); ?> min
-                            </div>
-                            <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 110px;">Director:</strong><?php echo htmlspecialchars($row['director']); ?>
-                            </div>
-                            <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 110px;">Rating:</strong><span style="font-size: 0.8rem; margin-left: 0px;">
-                                    <?php
-                                    $movie_id = $row['movie_id'];
-                                    $rating = $row['rating'];
-                                    $fullStars = floor($rating);
-                                    $halfStar = ($rating - $fullStars) >= 0.5;
-
-                                    for ($i = 0; $i < $fullStars; $i++) {
-                                        echo '<i class="bi bi-star-fill"></i>';
-                                    }
-
-                                    if ($halfStar) {
-                                        echo '<i class="bi bi-star-half"></i>';
-                                    }
-
-                                    for ($i = $fullStars + ($halfStar ? 1 : 0); $i < 5; $i++) {
-                                        echo '<i class="bi bi-star"></i>';
-                                    }
-                                    ?>
-                                </span>
-                            </div>
-                            <div style="margin-bottom: 15px;">
-                                <strong style="display: inline-block; width: 100px;">Description:</strong>
-                                <p style="margin: 0;"><?php echo htmlspecialchars($row['description']); ?></p>
-                            </div>
-                            <button type="button"
-                                data-bs-toggle="modal" data-bs-target="#add-diary"
-                                class="btn btn-sm d-flex justify-content-center align-items-center"
-                                style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 20px 20px; font-weight: bold; text-align: center; display: inline-block;"
-                                onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
-                                onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
-                                Add to Diary
-                            </button>
-                        </div>
-                        <div>
-                            <img src=<?php echo htmlspecialchars($row['poster']); ?> alt="<?php echo htmlspecialchars($row['title']); ?>" style="width: 250px; height: auto; border-radius: 8px;">
-                        </div>
-                    </div>
-
-                    <div class="oswald-regular" style="max-width: 900px; margin: auto; margin-top: 20px; color: white; display: flex; flex-direction: column;">
-                        <h2 class="oswald-regular">Reviews</h2>
-                        <ul class="list-group list-group-flush" style="width: 500px;">
-                            <?php
-                            if (mysqli_num_rows($result2) > 0) {
-                                while ($row2 = mysqli_fetch_assoc($result2)) {
-                            ?>
-                                    <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">
-                                        <blockquote style="font-style: italic; margin: 0;">
-                                            &ldquo;<?php echo htmlspecialchars($row2['review']); ?>&rdquo;
-                                        </blockquote>
-                                    </li>
-                            <?php
-                                }
-                            }
-                            ?>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="add-diary" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Add to Diary</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <form id="add_diary" method="POST" action="details.php">
-                        <div class="modal-body" style="color: white;">
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Review</label>
-                                <input type="text" class="form-control" id="review" name="review" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Rating</label>
-                                <div class="rating" style="font-size: 2rem; max-width:45px; line-height: 1;">
-                                    <input type="radio" id="star5" name="rating" value="1" required/>
-                                    <label for="star5" title="1 stars"></label>
-
-                                    <input type="radio" id="star4" name="rating" value="2" />
-                                    <label for="star4" title="2 stars"></label>
-
-                                    <input type="radio" id="star3" name="rating" value="3" />
-                                    <label for="star3" title="3 stars"></label>
-
-                                    <input type="radio" id="star2" name="rating" value="4" />
-                                    <label for="star2" title="4 stars"></label>
-
-                                    <input type="radio" id="star1" name="rating" value="5" />
-                                    <label for="star1" title="5 star"></label>
+                <div class="col-lg-12 ms-auto p-3 overflow-hidden">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div style="max-width: 850px; height:auto; margin: auto; background: rgba(255,255,255, 0.1); padding: 35px;  color: white; display: flex;">
+                            <div style="flex: 2; margin-right: 20px;">
+                                <h1 style="font-size: 3em; margin-bottom: 10px;"><?php echo htmlspecialchars($row['title']); ?></h1>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="font-size: 1.0em; display: inline-block; width: 110px;">Release Date:</strong> <?php echo htmlspecialchars($row['release_date']); ?>
                                 </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="display: inline-block; width: 110px;">Genre:</strong><?php echo htmlspecialchars($row['genre']); ?>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="display: inline-block; width: 110px;">Runtime:</strong><?php echo htmlspecialchars($row['duration_min']); ?> min
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="display: inline-block; width: 110px;">Director:</strong><?php echo htmlspecialchars($row['director']); ?>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="display: inline-block; width: 110px;">Rating:</strong><span style="font-size: 0.8rem; margin-left: 0px;">
+                                        <?php
+                                        $rating = $row['rating'];
+                                        $fullStars = floor($rating);
+                                        $halfStar = ($rating - $fullStars) >= 0.5;
+
+                                        for ($i = 0; $i < $fullStars; $i++) {
+                                            echo '<i class="bi bi-star-fill"></i>';
+                                        }
+
+                                        if ($halfStar) {
+                                            echo '<i class="bi bi-star-half"></i>';
+                                        }
+
+                                        for ($i = $fullStars + ($halfStar ? 1 : 0); $i < 5; $i++) {
+                                            echo '<i class="bi bi-star"></i>';
+                                        }
+                                        ?>
+                                    </span>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong style="display: inline-block; width: 100px;">Description:</strong>
+                                    <p style="margin: 0;"><?php echo htmlspecialchars($row['description']); ?></p>
+                                </div>
+                                <?php if ($isInDiary): ?>
+                                    <a href="#" class="btn btn-sm d-flex justify-content-center align-items-center" style="background-color: white; height: 40px; color: black; border-radius: 5px; padding: 5px 10px; font-weight: bold; text-align: center; margin-top: 10px; display: inline-block;">Already Added to Diary</a>
+                                <?php else: ?>
+                                    <button type="button"
+                                        data-bs-toggle="modal" data-bs-target="#add-diary"
+                                        class="btn btn-sm d-flex justify-content-center align-items-center" style="background-color: #F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 10px; font-weight: bold; text-align: center; margin-top: 10px; display: inline-block;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Add to Diary
+                                    </button>
+                                <?php endif; ?>
+
                             </div>
-                            <input type="hidden" name="movie_id" value=<?php echo htmlspecialchars($row['movie_id']); ?>>
+                            <div>
+                                <img src=<?php echo htmlspecialchars($row['poster']); ?> alt="<?php echo htmlspecialchars($row['title']); ?>" style="width: 250px; height: auto; border-radius: 8px;">
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="submit" name="add_diary" class="btn btn-primary">Add</button>
+                        <div class="oswald-regular" style="max-width: 900px; margin: auto; margin-top: 20px; color: white; display: flex; flex-direction: column;">
+                            <h2 class="oswald-regular">Reviews</h2>
+                            <ul class="list-group list-group-flush" style="width: 500px;">
+                                <?php
+                                if (mysqli_num_rows($result2) > 0) {
+                                    while ($row2 = mysqli_fetch_assoc($result2)) {
+                                ?>
+                                        <li class="list-group-item" style="background-color: #151517; color: white; border-color: white;">
+                                            <blockquote style="font-style: italic; margin: 0;">
+                                                &ldquo;<?php echo htmlspecialchars($row2['review']); ?>&rdquo;
+                                            </blockquote>
+                                        </li>
+                                <?php
+                                    }
+                                }
+                                ?>
+                            </ul>
                         </div>
-                    </form>
+                    </div>
+                </div> <?php } ?>
+            <div class="modal fade" id="add-diary" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel" style="color: white;">Add to Diary</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form id="add_diary" method="POST" action="details.php">
+                            <div class="modal-body" style="color: white;">
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Review</label>
+                                    <input type="text" class="form-control" id="review" name="review" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Rating</label>
+                                    <div class="rating" style="font-size: 2rem; max-width:45px; line-height: 1;">
+                                        <input type="radio" id="star5" name="rating" value="1" required />
+                                        <label for="star5" title="1 stars"></label>
+
+                                        <input type="radio" id="star4" name="rating" value="2" />
+                                        <label for="star4" title="2 stars"></label>
+
+                                        <input type="radio" id="star3" name="rating" value="3" />
+                                        <label for="star3" title="3 stars"></label>
+
+                                        <input type="radio" id="star2" name="rating" value="4" />
+                                        <label for="star2" title="4 stars"></label>
+
+                                        <input type="radio" id="star1" name="rating" value="5" />
+                                        <label for="star1" title="5 star"></label>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="movie_id" value=<?php echo htmlspecialchars($row['movie_id']); ?>>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" name="add_diary" class="btn btn-primary fw-bold" style="background-color: #F4CE14;" onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">Add</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </div>
-
-
 </body>
 
 </html>
