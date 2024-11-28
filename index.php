@@ -12,49 +12,23 @@ include('admin/inc/db_config.php');
     <h2 class="text-left me-10 py-2 px-3 fw-bold fs-1 oswald-regular" style="color:#F4CE14">Most Watched This Week</h2>
     <div class="swiper swiper-container">
         <div class="swiper-wrapper">
-       <?php
-           $query = "SELECT * FROM `movies`  ORDER BY movie_id";
-           
-           $data = mysqli_query($con, $query);
-           while ($row = mysqli_fetch_assoc($data)) {
-          
-            $description = htmlspecialchars($row['description']);
-            
-            $movie_id = $row['movie_id'];         
-           
-            $image = $row['poster'];             
-            $rating = $row['rating'];            
-            echo '<div class="swiper-slide">';
-            echo "<a href='details.php?movie_id=$movie_id'>";
-            echo '<img src="'.$image.'"/>';
-            echo  "</a>";
-            echo'</div>';
-           }
-            ?>
-            <!--
-            <div class="swiper-slide">
-                <img src="https://m.media-amazon.com/images/M/MV5BNTc0YmQxMjEtODI5MC00NjFiLTlkMWUtOGQ5NjFmYWUyZGJhXkEyXkFqcGc@._V1_.jpg" />
-            </div>
-            <div class="swiper-slide">
-                <img src="https://m.media-amazon.com/images/M/MV5BODI0OGRjYmEtNzFlNi00NTRlLTg3YTItM2ZkOGYyYTVhYjlkXkEyXkFqcGc@._V1_.jpg" />
-            </div>
-            <div class="swiper-slide">
-                <img src="https://m.media-amazon.com/images/M/MV5BMzUzNDM2NzM2MV5BMl5BanBnXkFtZTgwNTM3NTg4OTE@._V1_.jpg" />
-            </div>
-            <div class="swiper-slide">
-                <img src="https://upload.wikimedia.org/wikipedia/en/1/1e/Everything_Everywhere_All_at_Once.jpg" />
-            </div>
-            <div class="swiper-slide">
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/39/Jawan_film_poster.jpg/220px-Jawan_film_poster.jpg" />
-            </div>
-            <div class="swiper-slide">
-                <img src="https://m.media-amazon.com/images/M/MV5BYjI3NDU0ZGYtYjA2YS00Y2RlLTgwZDAtYTE2YTM5ZjE1M2JlXkEyXkFqcGc@._V1_.jpg" />
-            </div>
-            <div class="swiper-slide">
-                <img src="https://m.media-amazon.com/images/M/MV5BNDRjZmZhZTEtMzdlYi00MmE0LTgyZGMtZDc5ZWI0MjcxZTliXkEyXkFqcGc@._V1_.jpg" />
-            </div>
-        -->
+            <?php
+            $query = "SELECT * FROM `movies`  ORDER BY movie_id";
 
+            $data = mysqli_query($con, $query);
+            while ($row = mysqli_fetch_assoc($data)) {
+            ?>
+                <div class="swiper-slide">
+                    <form action="details.php" method="get" style="border: none; margin: auto; height: 300px;">
+                        <input type="hidden" name="movie_id" value="<?php echo htmlspecialchars($row['movie_id']); ?>">
+                        <div class="card border-0 shadow" style="width: 200px; height: 300px; cursor: pointer;" onclick="this.closest('form').submit();">
+                            <img src="<?php echo htmlspecialchars($row['poster']); ?>" class="card-img-top img-fluid" alt="<?php echo htmlspecialchars($row['title']); ?>" style="object-fit: cover;">
+                        </div>
+                    </form>
+                </div> 
+                <?php
+                    }
+                ?>
         </div>
         <div class="swiper-pagination"></div>
     </div>
@@ -73,7 +47,7 @@ include('admin/inc/db_config.php');
             </button>
         </form>
     </div>
-    
+
 </div>
 
 <?php

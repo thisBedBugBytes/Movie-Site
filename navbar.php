@@ -15,9 +15,6 @@
           <li class="nav-item">
             <a class="nav-link me-2 outfit-regular" href="logout.php">Logout</a>
           </li>
-          <li class="nav-item">
-          <a class="nav-link me-2 outfit-regular" href="movies.php">Movies</a>
-        </li>
         <?php else: ?>
           <li class="nav-item">
             <a class="nav-link me-2 outfit-regular" data-bs-toggle="modal" data-bs-target="#create-account">Create Account</a>
@@ -26,7 +23,9 @@
             <a class="nav-link me-2 outfit-regular" href="login.php">Login</a>
           </li>
         <?php endif; ?>
-    
+        <li class="nav-item">
+          <a class="nav-link me-2 outfit-regular" href="movies.php">Movies</a>
+        </li>
         <?php if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] == true): ?>
           <li class="nav-item">
             <a class="nav-link me-2 outfit-regular" href="watchlist.php">Watchlist</a>
