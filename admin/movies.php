@@ -1,11 +1,11 @@
 <?php
 
 include('inc/db_config.php');
+include('inc/essentials.php');
 include('inc/links.php');
-include('inc/scripts.php');
 
 #adminLogin();
-$success = false;
+#$success = false;
 session_start();
 
 
@@ -47,6 +47,7 @@ if (isset($_POST['done'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movies</title>
+   
     <style>
         body {
             color: #F4CE14;
@@ -71,8 +72,8 @@ if (isset($_POST['done'])) {
             color: #000;
         }
     </style>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
+    
+   
 
 </head>
 
@@ -126,9 +127,10 @@ if (isset($_POST['done'])) {
                             <?php
                             $sql = "SELECT * FROM `movies` ORDER BY movie_id;";
                             $data = mysqli_query($con, $sql);
+
                             while ($row = mysqli_fetch_assoc($data)) {
                                 $description = htmlspecialchars($row['description']);
-
+                                echo $row['movie_id'];
                                 echo <<<query
                                     <tr>
                                     <td>$row[movie_id]</td>
@@ -148,13 +150,16 @@ if (isset($_POST['done'])) {
                                         </div>
                                     </td>
                                     <td>
-                                     
-                                         <div class="btn-group" role="group" aria-label="Action Buttons">
-                                            <button type="submit" class="btn btn-warning" onclick="editMovie($row[movie_id])">Edit</button>
-                                               
-                                            <button type="submit" class="btn btn-danger" onclick="deleteMovie($row[movie_id])">Delete</button>
-                                         </div>
-                                 
+                                       
+                                    
+                                           <div class="btn-group" role="group" aria-label="Action Buttons">
+                                                <a type="button" class="btn btn-warning" id ="edit" href="edit_movies.php?button='edit'&movieId={$row['movie_id']}">
+                                                       Edit
+                                                </a>
+                                            <a type="button" class="btn btn-danger" onclick = "launch_comment_modal(<?php echo {$row['movie_id']}; ?>)">Delete</a>
+
+                                            </div>
+                                   
                                     </td>
                                     </tr>
                                    query;
@@ -221,67 +226,46 @@ if (isset($_POST['done'])) {
                     </div>
                 </div>
 
-                <div class="modal fade" id="edit-movie" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel" style="color: black;">Edit Details</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <form id="movie_form" method="POST" action="movies.php">
+               <!-- Modal Structure -->
+               <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-                                <div class="modal-body" style="color: black;">
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold">Title</label>
-                                        <input type="text" class="form-control" id="title" name="title" value="<?php $data['title']; ?>">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold">Director</label>
-                                        <input type="text" class="form-control" id="director" name="director" value="<?= $data['director']; ?>">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold">Description</label>
-                                        <textarea class="form-control" id="description" name="description" required><?php $data['description']; ?></textarea>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold">Runtime (minutes)</label>
-                                        <input type="number" class="form-control" id="runtime" name="runtime" value="<?= $data['duration_min']; ?>">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold">Release Date</label>
-                                        <input type="date" class="form-control" id="release-date" name="release_date" value="<?= $data['release_date']; ?>">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold">Genre</label>
-                                        <select class="form-select" id="genre" name="genre" value="<?= $data['genre']; ?>">
-                                            <option value="" disabled selected>Select Genre</option>
-                                            <option value="Action">Action</option>
-                                            <option value="Animation">Animation</option>
-                                            <option value="Comedy">Comedy</option>
-                                            <option value="Drama">Drama</option>
-                                            <option value="Thriller">Thriller</option>
-                                            <option value="Horror">Horror</option>
-                                            <option value="Romance">Romance</option>
-                                            <option value="Mystery">Mystery</option>
-                                            <option value="Sci-Fi">Sci-Fi</option>
-                                        </select>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label fw-bold">Poster URL</label>
-                                        <input type="text" class="form-control" id="poster-url" name="poster-url" value="<?= $data['poster']; ?>">
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" name="done" class="btn btn-primary">Done</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        <!-- here i need to use php to fetch the comments using post id -->
+        </div>
+   </div>
+</div>
+
             </div>
         </div>
     </div>
+    <?php
+
+
+include('inc/scripts.php');
+?>
+
+    <script>
+  $('#delete-modal').modal({ show: false });
+
+
+    function launch_comment_modal(id){
+       $.ajax({
+          type: "POST",
+          url: "delete_movies.php",
+          data: {theId:id},
+          success: function(data){
+
+          //"data" contains a json with your info in it, representing the array you created in PHP. Use $(".modal-content").html() or something like that to put the content into the modal dynamically using jquery.
+
+        $('#delete-modal').modal("show");// this triggers your modal to display
+           },
+
+    });
+
+ }
+
+    </script>
 
 </body>
 

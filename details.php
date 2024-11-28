@@ -93,7 +93,7 @@ include('admin/inc/scripts.php');
 </head>
 
 <?php
-session_start();
+#session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $movie_id = $_GET['movie_id'];

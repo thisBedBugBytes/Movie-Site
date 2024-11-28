@@ -25,7 +25,9 @@ include('admin/inc/db_config.php');
             $image = $row['poster'];             
             $rating = $row['rating'];            
             echo '<div class="swiper-slide">';
+            echo "<a href='details.php?movie_id=$movie_id'>";
             echo '<img src="'.$image.'"/>';
+            echo  "</a>";
             echo'</div>';
            }
             ?>
