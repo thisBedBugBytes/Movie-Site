@@ -244,25 +244,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' || isset($_SESSION['movie_id'])) {
                         <div class="modal-body" style="color: white;">
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Review</label>
-                                <input type="text" class="form-control" id="review" name="review">
+                                <input type="text" class="form-control" id="review" name="review" required>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold">Rating</label>
                                 <div class="rating" style="font-size: 2rem; max-width:45px; line-height: 1;">
-                                    <input type="radio" id="star5" name="rating" value="1" />
-                                    <label for="star5" title="5 stars"></label>
+                                    <input type="radio" id="star5" name="rating" value="1" required/>
+                                    <label for="star5" title="1 stars"></label>
 
                                     <input type="radio" id="star4" name="rating" value="2" />
-                                    <label for="star4" title="4 stars"></label>
+                                    <label for="star4" title="2 stars"></label>
 
                                     <input type="radio" id="star3" name="rating" value="3" />
                                     <label for="star3" title="3 stars"></label>
 
                                     <input type="radio" id="star2" name="rating" value="4" />
-                                    <label for="star2" title="2 stars"></label>
+                                    <label for="star2" title="4 stars"></label>
 
                                     <input type="radio" id="star1" name="rating" value="5" />
-                                    <label for="star1" title="1 star"></label>
+                                    <label for="star1" title="5 star"></label>
                                 </div>
                             </div>
                             <input type="hidden" name="movie_id" value=<?php echo htmlspecialchars($row['movie_id']); ?>>
