@@ -119,10 +119,7 @@ if (isset($_POST['edit_done'])) {
     </div>
 
     <div class="container-fluid">
-        <?php
-        if(isset($_GET['edit'])){
-        
-        ?> 
+      
         <div class="row">
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                                      
@@ -198,7 +195,7 @@ if (isset($_POST['edit_done'])) {
                             <?php 
                         }
                     }
-                }
+                
                         ?>
                         </div>
                     </div>
