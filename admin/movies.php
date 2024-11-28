@@ -119,8 +119,10 @@ if (isset($_POST['done'])) {
                                 <th scope="col" width="7%">Genre</th>
                                 <th scope="col" width="7%">Rating</th>
                                 <th scope="col" width="7%">Poster</th>
-                                <th scope="col" width="20%">Description</th>
-                                <th scope="col" width="30%">Action</th>
+                                <th scope="col" width="50%">Description</th>
+                                <th scope="col" width="30%">        </th>  
+                                <th scope="col" width="30%"> Action   </th>
+                                <th scope="col" width="30%">          </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -146,7 +148,7 @@ if (isset($_POST['done'])) {
                                             <div class="description" style="max-height: 4.5em; overflow: hidden; transition: max-height 0.3s ease;">
                                                 $description
                                             </div>
-                                            <button class="btn btn-link expand-btn">Show More</button>
+                                            <button class="btn btn-link expand-btn" style="color: #ffffe6; font-size: 0.6rem">Show More</button>
                                         </div>
                                     </td>
                                     <td>
