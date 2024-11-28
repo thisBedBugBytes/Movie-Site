@@ -12,24 +12,23 @@ include('admin/inc/db_config.php');
     <h2 class="text-left me-10 py-2 px-3 fw-bold fs-1 oswald-regular" style="color:#F4CE14">Most Watched This Week</h2>
     <div class="swiper swiper-container">
         <div class="swiper-wrapper">
-       <?php
-           $query = "SELECT * FROM `movies`  ORDER BY movie_id";
-           
-           $data = mysqli_query($con, $query);
-           while ($row = mysqli_fetch_assoc($data)) {
-          
-            $description = htmlspecialchars($row['description']);
-            
-            $movie_id = $row['movie_id'];         
-           
-            $image = $row['poster'];             
-            $rating = $row['rating'];            
-            echo '<div class="swiper-slide">';
-            echo '<img src="'.$image.'"/>';
-            echo'</div>';
-           }
+            <?php
+            $query = "SELECT * FROM `movies`  ORDER BY movie_id";
+
+            $data = mysqli_query($con, $query);
+            while ($row = mysqli_fetch_assoc($data)) {
             ?>
-            
+                <div class="swiper-slide">
+                    <form action="details.php" method="get" style="border: none; margin: auto; height: 300px;">
+                        <input type="hidden" name="movie_id" value="<?php echo htmlspecialchars($row['movie_id']); ?>">
+                        <div class="card border-0 shadow" style="width: 200px; height: 300px; cursor: pointer;" onclick="this.closest('form').submit();">
+                            <img src="<?php echo htmlspecialchars($row['poster']); ?>" class="card-img-top img-fluid" alt="<?php echo htmlspecialchars($row['title']); ?>" style="object-fit: cover;">
+                        </div>
+                    </form>
+                </div> 
+                <?php
+                    }
+                ?>
         </div>
         <div class="swiper-pagination"></div>
     </div>
@@ -48,7 +47,7 @@ include('admin/inc/db_config.php');
             </button>
         </form>
     </div>
-    
+
 </div>
 
 <?php
