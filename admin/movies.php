@@ -119,8 +119,10 @@ if (isset($_POST['done'])) {
                                 <th scope="col" width="7%">Genre</th>
                                 <th scope="col" width="7%">Rating</th>
                                 <th scope="col" width="7%">Poster</th>
-                                <th scope="col" width="20%">Description</th>
-                                <th scope="col" width="30%">Action</th>
+                                <th scope="col" width="50%">Description</th>
+                                <th scope="col" width="30%">        </th>  
+                                <th scope="col" width="30%"> Action   </th>
+                                <th scope="col" width="30%">          </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -146,18 +148,21 @@ if (isset($_POST['done'])) {
                                             <div class="description" style="max-height: 4.5em; overflow: hidden; transition: max-height 0.3s ease;">
                                                 $description
                                             </div>
-                                            <button class="btn btn-link expand-btn">Show More</button>
+                                            <button class="btn btn-link expand-btn" style="color: #ffffe6; font-size: 0.6rem">Show More</button>
                                         </div>
                                     </td>
                                     <td>
                                        
                                     
                                            <div class="btn-group" role="group" aria-label="Action Buttons">
-                                                <a type="button" class="btn btn-warning" id ="edit" href="edit_movies.php?button='edit'&movieId={$row['movie_id']}">
+                                        <td>     
+                                           <a type="button" class="btn btn-warning" id ="edit" href="edit_movies.php?button='edit'&movieId={$row['movie_id']}">
                                                        Edit
                                                 </a>
-                                            <a type="button" class="btn btn-danger" onclick = "launch_comment_modal(<?php echo {$row['movie_id']}; ?>)">Delete</a>
-
+                                        </td>
+                                        <td> 
+                                             <button type="button" class="btn btn-danger deletebtn">Delete</button>
+                                        
                                             </div>
                                    
                                     </td>
@@ -227,10 +232,21 @@ if (isset($_POST['done'])) {
                 </div>
 
                <!-- Modal Structure -->
-               <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+ <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-
+        <div class="modal-header">
+            <h4 id="staticBackdropLabel" style="color: black;">Do you want to delete this movie from the database?</h4>
+        </div>
+            <form id="movie_form" method="POST" action="delete_movies.php">
+              
+                <input type="hidden" id="delete_id" name="deleteId">
+                <div class="modal-footer">
+                   
+                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" name="deleteData" class="btn btn-primary">Confirm</button>
+                </div>
+            </form>
         <!-- here i need to use php to fetch the comments using post id -->
         </div>
    </div>
@@ -244,27 +260,21 @@ if (isset($_POST['done'])) {
 
 include('inc/scripts.php');
 ?>
-
     <script>
-  $('#delete-modal').modal({ show: false });
+        
+        $(document).ready(function(){
+            $('.deletebtn').on('click', function(){
+            $('#delete-modal').modal('show');
 
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function(){
+                return $(this).text();
+            }).get();
+            console.log(data);
 
-    function launch_comment_modal(id){
-       $.ajax({
-          type: "POST",
-          url: "delete_movies.php",
-          data: {theId:id},
-          success: function(data){
-
-          //"data" contains a json with your info in it, representing the array you created in PHP. Use $(".modal-content").html() or something like that to put the content into the modal dynamically using jquery.
-
-        $('#delete-modal').modal("show");// this triggers your modal to display
-           },
-
+            $('#delete_id').val(data[0]);
+        });
     });
-
- }
-
     </script>
 
 </body>
