@@ -109,6 +109,9 @@ include('admin/inc/scripts.php');
 
 <?php
 session_start();
+if (isset($_GET['movie_id'])) {
+    $_SESSION['movie_id'] = $_GET['movie_id'];
+}
 
 if (isset($_POST['add_diary'])) {
     if (isset($_SESSION['userLogin']) && $_SESSION['userLogin'] == true) {
@@ -123,14 +126,15 @@ if (isset($_POST['add_diary'])) {
         if ($sql_run) {
             echo "<script>alert('Added to your diary:D');</script>";
             redirect('details.php');
-        } else {
-            redirect('login.php');
         }
+    }
+    else {
+        redirect('login.php');
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $movie_id = $_GET['movie_id'];
+if ($_SERVER['REQUEST_METHOD'] === 'GET' || isset($_SESSION['movie_id'])) {
+    $movie_id = $_SESSION['movie_id'];
     $_SESSION['movie_id'] = $movie_id;
     $user_id = $_SESSION['userID'];
     $sql = "SELECT * from movies where movie_id = '$movie_id';";
@@ -149,7 +153,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             <?php
             if (mysqli_num_rows($result) > 0)
                 $row = mysqli_fetch_assoc($result);
-            $watchlistadd = false;
 
             ?>
             <div class="col-lg-12 ms-auto p-3 overflow-hidden">

@@ -44,19 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     .card {
-        width: 180px;
-        /* Set a fixed width */
+        width: 200px;
         height: 300px;
-        /* Set a fixed height */
         margin: auto;
-        /* Center the card */
     }
 
     .card-img-top {
         height: 150px;
-        /* Set a fixed height for the image */
         object-fit: cover;
-        /* Ensure the image covers the area */
     }
 </style>
 
@@ -126,8 +121,8 @@ $result = mysqli_query($con, $sql);
                 $watchlistadd = false;
 
         ?>
-                <div class="col-lg-2 col-md-4 my-2">
-                    <div class="card border-0 shadow" style="width: 200px; margin:auto; height: 460px;">
+                <div class="col-lg-3 col-md-4 my-2 ">
+                    <div class="card border-0 shadow" style="width:107%; margin:auto; height: 430px;">
                         <img src="<?php echo htmlspecialchars($row['poster']); ?>" class="card-img-top" alt="<?php echo htmlspecialchars($row['title']); ?>" style="height: 150px; object-fit: cover;">
                         <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
                             <h5 class="card-title" style="font-size: 1.2rem;"><?php echo htmlspecialchars($row['title']); ?></h5>
@@ -136,8 +131,7 @@ $result = mysqli_query($con, $sql);
                                 <i class="bi bi-clock" style="margin-right: 5px;"></i>
                                 <?php echo htmlspecialchars($row['duration_min']); ?> minutes
                             </h6>
-                        </div>
-                        <ul class="list-group list-group-flush bg-dark text-white" style="padding: 0.2rem;">
+                            <ul class="list-group list-group-flush bg-dark text-white" style="padding: 0.2rem;">
                             <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Release: <?php echo htmlspecialchars($row['release_date']); ?></li>
                             <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Genre: <?php echo htmlspecialchars($row['genre']); ?></li>
                             <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating: <?php echo htmlspecialchars($row['rating']); ?></li>
@@ -162,41 +156,42 @@ $result = mysqli_query($con, $sql);
                                 ?>
                             </span>
                         </ul>
-                        <div class="card-body bg-dark text-white outfit-regular" style="padding: 0.5rem;">
-                            <div class="d-flex justify-content-evenly">
-                                <?php if ($row['user_id'] == $user_id && $user_id != NULL): ?>
-                                    <a href="#" class="btn btn-sm d-flex justify-content-center align-items-center" style="background-color: white; height: 40px ; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center; display: inline-block;">Already Added</a>
-                                    <form action="details.php" method="GET">
-                                        <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
-                                            class="btn btn-sm d-flex justify-content-center align-items-center"
-                                            style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; margin-left: 8px;"
-                                            onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
-                                            onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
-                                            Details
-                                        </button>
-                                    </form>
-                                <?php else: ?>
-                                    <form action="movies.php" method="POST">
-                                        <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
-                                            class="btn btn-sm d-flex justify-content-center align-items-center"
-                                            style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center; display: inline-block;"
-                                            onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
-                                            onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
-                                            Add to Watchlist
-                                        </button>
-                                    </form>
-                                    <form action="details.php" method="GET">
-                                        <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
-                                            class="btn btn-sm d-flex justify-content-center align-items-center"
-                                            style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; margin-left: 8px;"
-                                            onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
-                                            onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
-                                            Details
-                                        </button>
-                                    </form>
-                                <?php endif; ?>
-                            </div>
+                        <div class="mt-auto d-flex justify-content-evenly">
+                            <?php if ($row['user_id'] == $user_id && $user_id != NULL): ?>
+                                <a href="#" class="btn btn-sm d-flex justify-content-center align-items-center" style="background-color: white; height: 40px ; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center; margin-top : 10px; display: inline-block;">Already Added</a>
+                                <form action="details.php" method="GET">
+                                    <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
+                                        class="btn btn-sm d-flex justify-content-center align-items-center"
+                                        style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; margin-top : 10px; margin-left: 8px;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Details
+                                    </button>
+                                </form>
+                            <?php else: ?>
+                                <form action="movies.php" method="POST">
+                                    <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
+                                        class="btn btn-sm d-flex justify-content-center align-items-center"
+                                        style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 2px 2px; font-weight: bold; text-align: center;margin-top : 10px; display: inline-block;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Add to Watchlist
+                                    </button>
+                                </form>
+                                <form action="details.php" method="GET">
+                                    <button type="submit" name="movie_id" value="<?php echo $movie_id; ?>"
+                                        class="btn btn-sm d-flex justify-content-center align-items-center"
+                                        style="background-color:#F4CE14; height: 40px; color: black; border-radius: 5px; padding: 5px 5px; font-weight: bold; text-align: center; margin-top : 10px; margin-left: 8px;"
+                                        onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
+                                        onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">
+                                        Details
+                                    </button>
+                                </form>
+                            <?php endif; ?>
                         </div>
+                        </div>
+                        
+
                     </div>
                 </div>
         <?php
@@ -205,8 +200,7 @@ $result = mysqli_query($con, $sql);
             echo "<p>No movies found.</p>";
         }
         ?>
-    </div
-        </div>
-    <?php
-    include("footer.php");
-    ?>
+    </div>
+</div>
+
+<?php include("footer.php"); ?>
