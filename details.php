@@ -87,22 +87,26 @@ include('admin/inc/scripts.php');
             display: none;
         }
 
-        .rating label {
+        .rating input+label {
             cursor: pointer;
             color: #FFD700;
+            font-size: 2rem;
         }
 
-        .rating label:before {
-            content: '\2606';
+        .rating input:checked+label~label {
+            color: white;
         }
 
-        .rating label:hover:before,
-        .rating input:checked~label:before {
+        .rating label :active {
+            transform: scale(0.8);
+        }
+
+        .rating label:hover {
             content: '\2605';
         }
 
-        .rating input:checked~label {
-            color: #FFD700;
+        .rating label:hover~label:before {
+            content: '\2606';
         }
     </style>
 </head>
@@ -119,7 +123,6 @@ if (isset($_POST['add_diary'])) {
         $rating = $_POST['rating'];
         $user_id = $_SESSION['userID'];
         $movie_id = $_SESSION['movie_id'];
-        echo "<script>alert('$review $rating $user_id $movie_id');</script>";
 
         $sql = "INSERT INTO  `diary` (`movie_id`, `user_id`, `review`, `rating`) VALUES ('$movie_id', '$user_id', '$review', $rating)";
         $sql_run = mysqli_query($con, $sql);
@@ -246,30 +249,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' || isset($_SESSION['movie_id'])) {
                                     <label class="form-label fw-bold">Review</label>
                                     <input type="text" class="form-control" id="review" name="review" required>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label fw-bold">Rating</label>
-                                    <div class="rating" style="font-size: 2rem; max-width:45px; line-height: 1;">
-                                        <input type="radio" id="star5" name="rating" value="1" required />
-                                        <label for="star5" title="1 stars"></label>
 
-                                        <input type="radio" id="star4" name="rating" value="2" />
-                                        <label for="star4" title="2 stars"></label>
+                                <label class="form-label fw-bold">Rating</label>
+                                <div class="mb-3 rating">
+                                    <div class="star-icon">
+                                        <input type="radio" id="star1" name="rating" value="1" required />
+                                        <label for="star1" title="1 stars" class="fa fa-star"></label>
+
+                                        <input type="radio" id="star2" name="rating" value="2" />
+                                        <label for="star2" title="2 stars" class="fa fa-star"></label>
 
                                         <input type="radio" id="star3" name="rating" value="3" />
-                                        <label for="star3" title="3 stars"></label>
+                                        <label for="star3" title="3 stars" class="fa fa-star"></label>
 
-                                        <input type="radio" id="star2" name="rating" value="4" />
-                                        <label for="star2" title="4 stars"></label>
+                                        <input type="radio" id="star4" name="rating" value="4" />
+                                        <label for="star4" title="4 stars" class="fa fa-star"></label>
 
-                                        <input type="radio" id="star1" name="rating" value="5" />
-                                        <label for="star1" title="5 star"></label>
+                                        <input type="radio" id="star5" name="rating" value="5" />
+                                        <label for="star5" title="5 star" class="fa fa-star"></label>
                                     </div>
                                 </div>
                                 <input type="hidden" name="movie_id" value=<?php echo htmlspecialchars($row['movie_id']); ?>>
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" name="add_diary" class="btn btn-primary fw-bold" style="background-color: #F4CE14;" onmouseover="this.style.backgroundColor='#BA4323'; this.style.color='white';"
-                                onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">Add</button>
+                                    onmouseout="this.style.backgroundColor='#F4CE14'; this.style.color='black';">Add</button>
                             </div>
                         </form>
                     </div>
