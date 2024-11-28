@@ -14,13 +14,13 @@ $sql = "SELECT * FROM `watchlist` as w join `movies` as m on w.movie_id=m.movie_
 $result = mysqli_query($con, $sql);
 ?>
 
-<div class="container">
+<div class="container fluid">
     <div class="row">
         <?php
         if (mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
         ?>
-                <div class="col-lg-3 col-md-4 mt-5 my-2">
+                <div class="col-lg-2 col-md-4 mt-5 my-2">
                     <form action="details.php" method="get" style="border: none; margin: auto; height: 300px;">
                         <input type="hidden" name="movie_id" value="<?php echo htmlspecialchars($row['movie_id']); ?>">
                         <div class="card border-0 shadow" style="width: 200px; height: 300px; cursor: pointer;" onclick="this.closest('form').submit();">
