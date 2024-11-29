@@ -10,7 +10,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <?php if (isset($_SESSION['userName'])): ?>
           <li class="nav-item">
-            <a class="nav-link active me-2 outfit-regular fs-6" aria-current="page" href="#">Welcome <?php echo htmlspecialchars($_SESSION['userName']); ?></a>
+            <a class="nav-link active me-2 outfit-regular fs-6" aria-current="page" href="index.php">Welcome <?php echo htmlspecialchars($_SESSION['userName']); ?></a>
           </li>
           <li class="nav-item">
             <a class="nav-link me-2 outfit-regular fs-6" href="logout.php">Logout</a>

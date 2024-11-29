@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 </style>
 
+
 <nav class="navbar navbar-expand-lg navbar-light py-2">
     <div class="container-fluid">
         <a class="navbar-brand outfit-regular" style="color:#E5E4E2" href="movies.php">Movies</a>
@@ -62,56 +63,76 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav me-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle outfit-regular" href="#" id="genreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#E5E4E2">
-                        <u>Genre</u>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="genreDropdown">
-                        <li><a class="dropdown-item outfit-regular" href="#">Action</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">Animation</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">Comedy</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">Drama</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">Horror</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">Mystery</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">Romance</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">Sci-Fi</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">Thriller</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle outfit-regular" href="#" id="yearDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#E5E4E2">
-                        <u>Year</u>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="yearDropdown">
-                        <li><a class="dropdown-item outfit-regular" href="#">2024</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">2023</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">2022</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">2021</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">2020</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle outfit-regular" href="#" id="runtimeDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#E5E4E2">
-                        <u>Runtime</u>
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="runtimeDropdown">
-                        <li><a class="dropdown-item outfit-regular" href="#">Under 90 minutes</a></li>
-                        <li><a class="dropdown-item outfit-regular" href="#">90 - 120 minutes</a></li>
-                        <li><a class=" dropdown-item outfit-regular" href="#">Over 120 minutes</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <form class="d-flex" method="GET" action="movies.php">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle outfit-regular" href="#" id="genreDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#E5E4E2">
+                            <u>Genre</u>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="genreDropdown">
+                            <li><a class="dropdown-item outfit-regular" href="?genre=action&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>">Action</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?genre=animation&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>">Animation</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?genre=comedy&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>">Comedy</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?genre=drama&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>">Drama</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?genre=horror&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>">Horror</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?genre=mystery&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>">Mystery</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?genre=romance&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>">Romance</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?genre=sci-fi&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>">Sci-Fi</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?genre=thriller&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>">Thriller</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle outfit-regular" href="#" id="yearDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color:#E5E4E2">
+                            <u>Year</u>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="yearDropdown">
+                            <li><a class="dropdown-item outfit-regular" href="?year=2024&genre=<?php echo isset($_GET['genre']) ? $_GET['genre'] : ''; ?>">2024</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?year=2023&genre=<?php echo isset($_GET['genre']) ? $_GET['genre'] : ''; ?>">2023</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?year=2022&genre=<?php echo isset($_GET['genre']) ? $_GET['genre'] : ''; ?>">2022</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?year=2021&genre=<?php echo isset($_GET['genre']) ? $_GET['genre'] : ''; ?>">2021</a></li>
+                            <li><a class="dropdown-item outfit-regular" href="?year=2020&genre=<?php echo isset($_GET['genre']) ? $_GET['genre'] : ''; ?>">2020</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </form>
         </div>
     </div>
 </nav>
 
 <?php
 $user_id = $_SESSION['userID'];
-$sql2 = "SELECT * FROM movies;";
-$result2 = mysqli_query($con, $sql2);
 
+$genreFilter = isset($_GET['genre']) ? $_GET['genre'] : '';
+$yearFilter = isset($_GET['year']) ? $_GET['year'] : '';
+
+$sql2 = "SELECT * FROM movies WHERE 1=1";
+if (!empty($genreFilter)) {
+    $sql2 .= " AND genre = '" . mysqli_real_escape_string($con, $genreFilter) . "'";
+}
+if (!empty($yearFilter)) {
+    $sql2 .= " AND release_date LIKE '" . mysqli_real_escape_string($con, $yearFilter) . "%'";
+}
+$result2 = mysqli_query($con, $sql2);
 ?>
+
+<div class="container mt-3">
+    <div class="d-flex flex-wrap">
+        <?php if (!empty($genreFilter)): ?>
+            <span class="badge" style="background-color: #F4CE14; color: black; padding: 5px 5px; font-size: 1rem; margin-right: 10px;">
+                <?php echo htmlspecialchars($genreFilter); ?>
+                <a href="?year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>" class="text-dark" style="text-decoration: none; margin-left: 5px;">&times;</a>
+            </span>
+        <?php endif; ?>
+        <?php if (!empty($yearFilter)): ?>
+            <span class="badge" style="background-color: #F4CE14; color: black; padding: 5px 5px; font-size: 1rem; margin-right: 10px;">
+                <?php echo htmlspecialchars($yearFilter); ?>
+                <a href="?genre=<?php echo isset($_GET['genre']) ? $_GET['genre'] : ''; ?>" class="text-dark" style="text-decoration: none; margin-left: 5px;">&times;</a>
+            </span>
+        <?php endif; ?>
+    </div>
+</div>
+
+
 
 <div class="container">
     <div class="row">
@@ -129,7 +150,7 @@ $result2 = mysqli_query($con, $sql2);
                     while ($row = mysqli_fetch_assoc($result)) {
                         if ($row['movie_id'] == $movie_id) {
                             $isInWatchlist = true;
-                            break; 
+                            break;
                         }
                     }
                 }
@@ -148,21 +169,22 @@ $result2 = mysqli_query($con, $sql2);
                                 <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Release: <?php echo htmlspecialchars($row2['release_date']); ?></li>
                                 <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Genre: <?php echo htmlspecialchars($row2['genre']); ?></li>
                                 <li class="list-group-item bg-dark text-white outfit-regular" style="padding: 0.3rem;">Rating:
-                                <span style="font-size: 0.8rem; margin-left: 5px;">
-                                    <?php
-                                    for ($i = 0; $i < $fullStars; $i++) {
-                                        echo '<i class="bi bi-star-fill"></i>';
-                                    }
+                                    <span style="font-size: 0.8rem; margin-left: 5px;">
+                                        <?php
+                                        for ($i = 0; $i < $fullStars; $i++) {
+                                            echo '<i class="bi bi-star-fill"></i>';
+                                        }
 
-                                    if ($halfStar) {
-                                        echo '<i class="bi bi-star-half"></i>';
-                                    }
+                                        if ($halfStar) {
+                                            echo '<i class="bi bi-star-half"></i>';
+                                        }
 
-                                    for ($i = $fullStars + ($halfStar ? 1 : 0); $i < 5; $i++) {
-                                        echo '<i class="bi bi-star"></i>';
-                                    }
-                                    ?>
-                                </span></li>
+                                        for ($i = $fullStars + ($halfStar ? 1 : 0); $i < 5; $i++) {
+                                            echo '<i class="bi bi-star"></i>';
+                                        }
+                                        ?>
+                                    </span>
+                                </li>
                             </ul>
                             <div class="mt-auto d-flex justify-content-evenly">
                                 <?php if ($isInWatchlist): ?>
