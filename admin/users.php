@@ -15,10 +15,13 @@ $movieCountResult = $con->query($movieCountQuery);
 $movieCountRow = mysqli_fetch_assoc($movieCountResult);
 $movieCount = $movieCountRow['total_movies'];
 
-$totalBanQuery = "SELECT COUNT(*) as total_banned FROM user where banned=0";
+$totalBanQuery = "SELECT COUNT(*) as total_banned FROM user where Banned=0";
 $totalBanResult = $con->query($totalBanQuery);
 $totalBanRow = mysqli_fetch_assoc($totalBanResult);
 $totalBan = $totalBanRow['total_banned'];
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,11 +92,11 @@ $totalBan = $totalBanRow['total_banned'];
                                 <th scope="col" width="10%">ID</th>
                                 <th scope="col" width="12%">Name</th>
                                 <th scope="col" width="10%">Contact</th>
-                                <th scope="col" width="15%">Email</th>
-                                <th scope="col" width="20%">Password</th>
+                                <th scope="col" width="13%">Email</th>
+                                <th scope="col" width="5%">Password</th>
                                 <th scope="col" width="10%">Date of Birth</th>
-                                <th scope="col" width="15%">Gender</th>
-                                <th scope="col" width="15%">Status</th>
+                                <th scope="col" width="10%">Gender</th>
+                                <th scope="col" width="10%">Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -101,7 +104,10 @@ $totalBan = $totalBanRow['total_banned'];
                             $sql = "SELECT * FROM `user` ORDER BY user_id;";
                             $data = mysqli_query($con, $sql);
                             while ($row = mysqli_fetch_assoc($data)) {
-                                $description = htmlspecialchars($row['description']);
+                                $check = ($row['Banned'] == 1)? "checked" : "";
+                                $on = ($row['Banned'] == 1)? "Unban" : "Ban";
+                                $off = ($row['Banned'] == 0)? "Ban" : "Unban";
+                                echo $row['user_id'];
                                 echo <<<query
                                     <tr>
                                     <td>$row[user_id]</td>
@@ -112,16 +118,18 @@ $totalBan = $totalBanRow['total_banned'];
                                     <td>$row[dob]</td>
                                     <td>$row[gender]</td>
                                     <td>
-                                        <button type="button" class="btn btn-warning" onclick="editMovie($row[movie_id])" value = "name"> edit</button> 
-                                    </td>
-                                    </tr>
+                                       <input type="checkbox" class="banbtn" id="bann" name="banbtn" data-user-id="{$row['user_id']}" data-banned="{$row['Banned'] }"  $check data-toggle="toggle" data-onstyle="outline-warning" data-offstyle="outline-danger" data-on=$on data-off=$off>
+                                     
+                                       </tr>
+                                    
                                    query;
+                                  
                             }
                             ?>
                         </tbody>
                     </table>
                 </div>
-                <div class="modal fade" id="add-movie" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal fade" id="edit-user" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -183,6 +191,37 @@ $totalBan = $totalBanRow['total_banned'];
     </div>
 
     <?php include('inc/scripts.php'); ?>
+    <script>
+        
+        $(document).ready(function(){
+            $('.banbtn').change( function(){
+            if(document.getElementById('bann').checked){
+                $('.banbtn').bootstrapToggle('toggle');
+            
+           
+           
+            var isBanned = !($(this).data('banned'));
+            var banid = $(this).data('user-id');
+            var banbtn= (isBanned)? 1 : 0;
+
+            console.log(banid);
+            console.log(isBanned);
+            $.ajax({
+                type:"POST",
+                url: "ban_user.php",
+                data: {banbtn: banbtn, banId: banid },
+                success: function(data){
+                    console.log(data);
+                }
+            });
+        }
+        });
+        
+    });
+   
+ 
+    </script>
+   
 </body>
 
 </html>

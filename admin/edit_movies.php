@@ -4,11 +4,14 @@ session_start();
 include('inc/db_config.php');
 include('inc/essentials.php');
 include('inc/links.php');
-include('inc/scripts.php');
+
 
 #adminLogin();
 #$success = false;
 
+if (isset($_POST['CLose'])){
+  redirect("movies.php");
+}
 
 if (isset($_POST['edit_done'])) {
     
@@ -127,7 +130,7 @@ if (isset($_POST['edit_done'])) {
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="staticBackdropLabel" style="color: black;">Edit Movie</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                               
                             </div>
                             <form name="movie_form" method="POST" action="edit_movies.php">
                                
@@ -188,7 +191,7 @@ if (isset($_POST['edit_done'])) {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" name="CLose" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="submit" name="edit_done" class="btn btn-primary">Done</button>
                                 </div>
                             </form>
@@ -205,8 +208,10 @@ if (isset($_POST['edit_done'])) {
          
             </div>
         </div>
-    </div>
-
+    
+<?php
+include('inc/scripts.php');
+?>
 </body>
 
 </html>

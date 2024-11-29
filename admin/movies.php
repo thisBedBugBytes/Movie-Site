@@ -230,27 +230,28 @@ if (isset($_POST['done'])) {
                         </div>
                     </div>
                 </div>
-
-               <!-- Modal Structure -->
- <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h4 id="staticBackdropLabel" style="color: black;">Do you want to delete this movie from the database?</h4>
-        </div>
-            <form id="movie_form" method="POST" action="delete_movies.php">
-              
-                <input type="hidden" id="delete_id" name="deleteId">
-                <div class="modal-footer">
-                   
-                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" name="deleteData" class="btn btn-primary">Confirm</button>
+            
+                            <!-- Modal Structure -->
+                             
+                <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="staticBackdropLabel" style="color: black;">Do you want to delete this movie from the database?</h4>
+                        </div>
+                            <form id="movie_form" method="POST" action="delete_movies.php">
+                            
+                                <input type="hidden" id="delete_id" name="deleteId">
+                                <div class="modal-footer">
+                                
+                                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" name="deleteData" class="btn btn-primary">Confirm</button>
+                                </div>
+                            </form>
+                        <!-- here i need to use php to fetch the comments using post id -->
+                        </div>
                 </div>
-            </form>
-        <!-- here i need to use php to fetch the comments using post id -->
-        </div>
-   </div>
-</div>
+                </div>
 
             </div>
         </div>
@@ -276,6 +277,7 @@ include('inc/scripts.php');
         });
     });
     </script>
+  
 
 </body>
 

@@ -1,9 +1,10 @@
 <?php
+
 include('inc/essentials.php');
 include('inc/db_config.php');
 include('inc/links.php');
 
-adminLogin();
+
 
 $totalUserQuery = "SELECT COUNT(*) as total_users FROM user";
 $totalUserResult = $con->query($totalUserQuery);
