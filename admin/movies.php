@@ -78,10 +78,18 @@ if (isset($_POST['done'])) {
 </head>
 
 <body style="color:#F4CE14">
-    <div class="container-fluid bg-dark text-light p-3 d-flex align-items-center justify-content-between sticky-top">
-        <a class="mb-0 oswald-regular mb-1 fw-bold sticky-top fs-1" href="../index.php" style="color: white; text-decoration: none;">CineBox</a> 
-        <a href="logout.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none oswald-regular my-2">Log Out</a>
+<div class="container-fluid bg-dark text-light p-3 d-flex align-items-center justify-content-between sticky-top">
+    <div class="d-flex align-items-center">
+        <a class="mb-0 oswald-regular mb-1 fw-bold fs-1" href="../index.php" style="color: white; text-decoration: none;">CineBox</a>
+        <a href="logout.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none oswald-regular my-3 ms-2">Log Out</a>
     </div>
+    <form class="d-flex mt-3" action="movies.php" method="GET">
+    <input class="form-control me-2" type="text" name="search" placeholder="Search by movie name" aria-label="Search" style="width: 300px;">
+    <button class="btn btn-outline-secondary shadow-none" type="submit">
+        <i class="fas fa-search"></i>
+    </button>
+</form>
+</div>
 
     <div class="col-lg-2 bg-light border-top border-3 border-secondary" id="dashboard-menu" style="min-height: 100vh;">
         <h5 class="text-dark text-center fw-bold fs-3 outfit-regular mt-2 p-2">Admin Panel</h5>
@@ -130,7 +138,11 @@ if (isset($_POST['done'])) {
                         </thead>
                         <tbody>
                             <?php
-                            $sql = "SELECT * FROM `movies` ORDER BY movie_id;";
+                            $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+                            $sql = "SELECT * FROM movies WHERE 1=1";
+                            if (!empty($searchQuery)) {
+                                $sql .= " AND title LIKE '%" . mysqli_real_escape_string($con, $searchQuery) . "%'";
+                            }
                             $data = mysqli_query($con, $sql);
 
                             while ($row = mysqli_fetch_assoc($data)) {

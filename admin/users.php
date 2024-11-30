@@ -62,10 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 </head>
 
 <body style="color:#F4CE14">
-    <div class="container-fluid bg-dark text-light p-3 d-flex align-items-center justify-content-between sticky-top">
-        <a class="mb-0 oswald-regular mb-1 fw-bold sticky-top fs-1" href="../index.php" style="color: white; text-decoration: none;">CineBox</a> 
-        <a href="logout.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none oswald-regular my-2">Log Out</a>
+<div class="container-fluid bg-dark text-light p-3 d-flex align-items-center justify-content-between sticky-top">
+    <div class="d-flex align-items-center">
+        <a class="mb-0 oswald-regular mb-1 fw-bold fs-1" href="../index.php" style="color: white; text-decoration: none;">CineBox</a>
+        <a href="logout.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none oswald-regular my-3 ms-2">Log Out</a>
     </div>
+</div>
 
 
     <div class="col-lg-2 bg-light border-top border-3 border-secondary" id="dashboard-menu" style="min-height: 100vh;">
@@ -116,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                                 $check = ($row['Banned'] == 1)? "checked" : "";
                                 $on = "Unban";
                                 $off = "Ban";
-                                echo $row['user_id'];
+                                
                                 echo <<<query
                                     <tr>
                                     <td>$row[user_id]</td>

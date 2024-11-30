@@ -18,6 +18,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else redirect("login.php");
 }
 
+
+$user_id = $_SESSION['userID'];
+
+$genreFilter = isset($_GET['genre']) ? $_GET['genre'] : '';
+$yearFilter = isset($_GET['year']) ? $_GET['year'] : '';
+$searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+$sql2 = "SELECT * FROM movies WHERE 1=1";
+if (!empty($genreFilter)) {
+    $sql2 .= " AND genre = '" . mysqli_real_escape_string($con, $genreFilter) . "'";
+}
+if (!empty($yearFilter)) {
+    $sql2 .= " AND release_date LIKE '" . mysqli_real_escape_string($con, $yearFilter) . "%'";
+}
+if (!empty($searchQuery)) {
+    $sql2 .= " AND title LIKE '%" . mysqli_real_escape_string($con, $searchQuery) . "%'";
+}
+$result2 = mysqli_query($con, $sql2);
+
 ?>
 <style>
     .navbar {
@@ -54,7 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         object-fit: cover;
     }
 </style>
-
 
 <nav class="navbar navbar-expand-lg navbar-light py-2">
     <div class="container-fluid">
@@ -99,22 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </nav>
 
-<?php
-$user_id = $_SESSION['userID'];
-
-$genreFilter = isset($_GET['genre']) ? $_GET['genre'] : '';
-$yearFilter = isset($_GET['year']) ? $_GET['year'] : '';
-
-$sql2 = "SELECT * FROM movies WHERE 1=1";
-if (!empty($genreFilter)) {
-    $sql2 .= " AND genre = '" . mysqli_real_escape_string($con, $genreFilter) . "'";
-}
-if (!empty($yearFilter)) {
-    $sql2 .= " AND release_date LIKE '" . mysqli_real_escape_string($con, $yearFilter) . "%'";
-}
-$result2 = mysqli_query($con, $sql2);
-?>
-
 <div class="container mt-3">
     <div class="d-flex flex-wrap">
         <?php if (!empty($genreFilter)): ?>
@@ -127,6 +129,12 @@ $result2 = mysqli_query($con, $sql2);
             <span class="badge" style="background-color: #F4CE14; color: black; padding: 5px 5px; font-size: 1rem; margin-right: 10px;">
                 <?php echo htmlspecialchars($yearFilter); ?>
                 <a href="?genre=<?php echo isset($_GET['genre']) ? $_GET['genre'] : ''; ?>" class="text-dark" style="text-decoration: none; margin-left: 5px;">&times;</a>
+            </span>
+        <?php endif; ?>
+        <?php if (!empty($searchQuery)): ?>
+            <span class="badge" style="background-color: #F4CE14; color: black; padding: 5px 5px; font-size: 1rem; margin-right: 10px;">
+                Search: "<?php echo htmlspecialchars($searchQuery); ?>"
+                <a href="?genre=<?php echo isset($_GET['genre']) ? $_GET['genre'] : ''; ?>&year=<?php echo isset($_GET['year']) ? $_GET['year'] : ''; ?>" class="text-dark" style="text-decoration: none; margin-left: 5px;">&times;</a>
             </span>
         <?php endif; ?>
     </div>
