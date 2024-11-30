@@ -126,19 +126,7 @@ if (isset($_POST['add_diary'])) {
 
         $sql = "INSERT INTO  `diary` (`movie_id`, `user_id`, `review`, `rating`) VALUES ('$movie_id', '$user_id', '$review', $rating)";
         $sql_run = mysqli_query($con, $sql);
-        $sql2 = "UPDATE movies AS m\n"
-
-        . "JOIN (\n"
-    
-        . "    SELECT movie_id, AVG(rating) AS average_rating\n"
-    
-        . "    FROM diary\n"
-    
-        . "    GROUP BY movie_id\n"
-    
-        . ") AS avg_ratings ON m.movie_id = avg_ratings.movie_id\n"
-    
-        . "SET m.rating = avg_ratings.average_rating;";
+        $sql2 = "UPDATE movies AS m JOIN (SELECT movie_id, AVG(rating) AS average_rating FROM diary GROUP BY movie_id ) AS avg_ratings ON m.movie_id = avg_ratings.movie_id SET m.rating = avg_ratings.average_rating;";
         $sql_run2 = mysqli_query($con, $sql2);
         if ($sql_run) {
             echo "<script>alert('Added to your diary:D');</script>";
@@ -155,14 +143,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' || isset($_SESSION['movie_id'])) {
     $user_id = $_SESSION['userID'];
     $sql = "SELECT * from movies where movie_id = '$movie_id';";
     $result = mysqli_query($con, $sql);
-    $sql2 = "SELECT m.movie_id as movie_id, title, director, genre, poster, duration_min, description, review, m.rating as rating , release_date, user_id, genre  FROM movies as m LEFT JOIN diary as d on m.movie_id=d.movie_id where m.movie_id = '$movie_id' and user_id = '$user_id';";
+    $sql2 = "SELECT m.movie_id as movie_id, title, director, genre, poster, duration_min, description, review, m.rating as rating , release_date, user_id, genre  FROM movies as m LEFT JOIN diary as d on m.movie_id=d.movie_id where m.movie_id = '$movie_id';";
     $result2 = mysqli_query($con, $sql2);
-    $isInDiary = mysqli_num_rows($result2) > 0;
+    $sql3 = "SELECT * FROM movies as m LEFT JOIN diary as d on m.movie_id=d.movie_id where m.movie_id = '$movie_id' AND d.user_id = '$user_id';";
+    $result3 = mysqli_query($con, $sql3);
+    $isInDiary = mysqli_num_rows($result3) > 0;
+
 }
-
-
 ?>
-?>
+
 
 <body>
     <div class="container-fluid">
