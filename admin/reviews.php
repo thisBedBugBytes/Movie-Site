@@ -30,6 +30,7 @@ $totalBan = $totalBanRow['total_banned'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reviews</title>
+    <title>Reviews</title>
     <style>
         body {
             color: #F4CE14;
@@ -59,8 +60,10 @@ $totalBan = $totalBanRow['total_banned'];
 
 <body style="color:#F4CE14">
     <div class="container-fluid bg-dark text-light p-3 d-flex align-items-center justify-content-between sticky-top">
-        <a class="mb-0 oswald-regular mb-1 fw-bold sticky-top fs-1" href="../index.php" style="color: white; text-decoration: none;">CineBox</a> 
-        <a href="logout.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none oswald-regular my-2">Log Out</a>
+        <div class="d-flex align-items-center">
+            <a class="mb-0 oswald-regular mb-1 fw-bold fs-1" href="../index.php" style="color: white; text-decoration: none;">CineBox</a>
+            <a href="logout.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none oswald-regular my-3 ms-2">Log Out</a>
+        </div>
     </div>
 
 
@@ -75,8 +78,10 @@ $totalBan = $totalBanRow['total_banned'];
             </li>
             <li class="nav-item">
                 <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
+                <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link active outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
                 <a class="nav-link active outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
             </li>
         </ul>
@@ -86,6 +91,7 @@ $totalBan = $totalBanRow['total_banned'];
         <div class="row">
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                 <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="oswald-regular fw-bold fs-2">Reviews</h3>
                     <h3 class="oswald-regular fw-bold fs-2">Reviews</h3>
                 </div>
                 <?php   $con = $GLOBALS['con'];
@@ -112,41 +118,34 @@ $totalBan = $totalBanRow['total_banned'];
                         </thead>
                         <tbody>
                             <?php
-                          
+
                             while ($row = mysqli_fetch_assoc($data)) {
-                             
-                                echo $row['user_id'];
                                 echo <<<query
                                     <tr>
                                     <td>$row[user_id]</td>
                                     <td>$row[movie_id]</td>
                                     <td>$row[name]</td>
-                                    <td>$row[rating]</td>
+                                    <td><img src="{$row['poster']}" alt="Poster" style="width: 50px; height: auto;"></td>
+                                    <td>$row[title]</td>
                                     <td>$row[review]</td>
-                                    <td>$row[gender]</td>
                                     <td>$row[log_time]</td>
-                                    <td>
-                                       <td> 
-                                             <button type="button" class="btn btn-danger deleteBtn">Delete</button>
-                                        </td>
-                                       </tr>
+                                    <td><button type="button" class="btn btn-danger deleteBtn">Delete</button></td>
+                                    </tr>
                                     
                                    query;
                             }
-                           
-                            }
-                            else{
-                                echo '<h4 id="staticBackdropLabel" style="color: white;"> There are no reviews</h4>';
-                            }
+                        } else {
+                            echo '<h4 id="staticBackdropLabel" style="color: white;"> There are no reviews</h4>';
+                        }
                             ?>
-                        </tbody>
-                    </table>
-                </div>
-               
+                            </tbody>
+                        </table>
+                    </div>
+
             </div>
             <div class="modal fade" id="delete-review" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
+                <div class="modal-dialog">
+                    <div class="modal-content">
                         <div class="modal-header">
                             <h4 id="staticBackdropLabel" style="color: black;">Do you want to delete diary entry from the database?</h4>
                         </div>
@@ -162,30 +161,29 @@ $totalBan = $totalBanRow['total_banned'];
                                 </div>
                             </form>
                         <!-- here i need to use php to fetch the comments using post id -->
-                        </div>
+                    </div>
                 </div>
+            </div>
+
         </div>
 
-    </div>
+        <?php include('inc/scripts.php'); ?>
+        <script>
+            $(document).ready(function() {
+                $('.deleteBtn').on('click', function() {
+                    $('#delete-review').modal('show');
 
-    <?php include('inc/scripts.php'); ?>
-    <script>
-        
-        $(document).ready(function(){
-            $('.deleteBtn').on('click', function(){
-            $('#delete-review').modal('show');
-            
-            $tr = $(this).closest('tr');
-            var data = $tr.children("td").map(function(){
-                return $(this).text();
-            }).get();
-            console.log(data[1]);
+                    $tr = $(this).closest('tr');
+                    var data = $tr.children("td").map(function() {
+                        return $(this).text();
+                    }).get();
+                    console.log(data[1]);
             console.log(data[0]);
             $('#deleteReview').val(data[1]);
-            $('#delete_review').val(data[0]);
-        });
-    });
-    </script>
+                    $('#delete_review').val(data[0]);
+                });
+            });
+        </script>
 </body>
 
 </html>

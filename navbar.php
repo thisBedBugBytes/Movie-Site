@@ -46,8 +46,8 @@
           <a class="nav-link me-2 outfit-regular fs-6" href="admin/index.php">Admin</a>
         </li>
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <form class="d-flex" action="movies.php" method="GET">
+        <input class="form-control me-2" type="text" name="search" placeholder="Search by movie name" aria-label="Search" style="width: 300px;">
         <button class="btn btn-outline-secondary shadow-none" type="submit">
           <i class="fas fa-search"></i>
         </button>
