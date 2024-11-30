@@ -30,7 +30,6 @@ $totalBan = $totalBanRow['total_banned'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reviews</title>
-    <title>Reviews</title>
     <style>
         body {
             color: #F4CE14;
@@ -156,7 +155,6 @@ $totalBan = $totalBanRow['total_banned'];
                                     <button type="submit" name="deleteData" class="btn btn-primary">Confirm</button>
                                 </div>
                             </form>
-                        <!-- here i need to use php to fetch the comments using post id -->
                     </div>
                 </div>
             </div>

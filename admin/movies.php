@@ -4,8 +4,6 @@ include('inc/db_config.php');
 include('inc/essentials.php');
 include('inc/links.php');
 
-#adminLogin();
-#$success = false;
 session_start();
 
 
@@ -22,17 +20,12 @@ if (isset($_POST['done'])) {
 
     $sql = "INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ('$title','$director', '$description','$release_date', '$runtime', '$genre', '$poster')";
     $sql_run = mysqli_query($con, $sql);
-    #$stmt = $con->prepare("INSERT INTO `movies` (`title`, `director`, `description`, `release_date`, `duration_min`, `genre`, `poster`) VALUES ( ?, ?, ?, ?, ?, ?, ?);");
-    #mysqli_stmt_bind_param($stmt, "ssssiss", $title,$director, $description,$release_date, $runtime, $genre, $poster);
     if ($sql_run) {
         $_SESSION['success'] = true;
         echo "<script>alert('New Movie Added:D');</script>";
         redirect('movies.php');
         session_destroy();
     }
-    #if($stmt->execute()){
-    #echo "<script>alert('Movie Inserted Successfully!');</script>";
-    #}
     else {
         echo "<script>alert('Error,Server Down :(');</script>";
     }
@@ -263,7 +256,6 @@ if (isset($_POST['done'])) {
                                     <button type="submit" name="deleteData" class="btn btn-primary">Confirm</button>
                                 </div>
                             </form>
-                        <!-- here i need to use php to fetch the comments using post id -->
                         </div>
                 </div>
                 </div>
