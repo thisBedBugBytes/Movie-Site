@@ -88,6 +88,12 @@ $totalBan = $totalBanRow['total_banned'];
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h3 class="oswald-regular fw-bold fs-2">Users</h3>
                 </div>
+                <?php   $con = $GLOBALS['con'];
+                            $sql = "SELECT * FROM `diary` as d, `user` as u WHERE d.`user_id` = u.`user_id` ORDER BY u.`user_id`;";
+                            $data = mysqli_query($con, $sql);
+                            if(!$data ) echo "query failed";
+                            if(mysqli_num_rows($data) > 0){
+                                ?>
                 <div class="table-responsive-md" style="height: 570px; overflow: auto;">
                     <table class="table table-hover table-dark table-striped" style="min-width: 600px;">
                         <thead class="sticky-top">
@@ -105,12 +111,9 @@ $totalBan = $totalBanRow['total_banned'];
                         </thead>
                         <tbody>
                             <?php
-                            $con = $GLOBALS['con'];
-                            $sql = "SELECT * FROM `diary` as d, `user` as u WHERE d.`user_id` = u.`user_id` ORDER BY u.`user_id`;";
-                            $data = mysqli_query($con, $sql);
-                            if(!$data ) echo "quesry failed";
+                          
                             while ($row = mysqli_fetch_assoc($data)) {
-                               
+                             
                                 echo $row['user_id'];
                                 echo <<<query
                                     <tr>
@@ -127,7 +130,11 @@ $totalBan = $totalBanRow['total_banned'];
                                        </tr>
                                     
                                    query;
-                                  
+                            }
+                           
+                            }
+                            else{
+                                echo '<h4 id="staticBackdropLabel" style="color: white;"> There are no reviews</h4>';
                             }
                             ?>
                         </tbody>
