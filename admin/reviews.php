@@ -30,6 +30,7 @@ $totalBan = $totalBanRow['total_banned'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reviews</title>
+    <title>Reviews</title>
     <style>
         body {
             color: #F4CE14;
@@ -77,8 +78,10 @@ $totalBan = $totalBanRow['total_banned'];
             </li>
             <li class="nav-item">
                 <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
+                <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link active outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
                 <a class="nav-link active outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
             </li>
         </ul>
@@ -89,34 +92,37 @@ $totalBan = $totalBanRow['total_banned'];
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h3 class="oswald-regular fw-bold fs-2">Reviews</h3>
+                    <h3 class="oswald-regular fw-bold fs-2">Reviews</h3>
                 </div>
-                <?php 
-                $con = $GLOBALS['con'];
-                $sql = "SELECT * FROM `diary` as d, `user` as u, movies as m WHERE d.`user_id` = u.`user_id` and d.`movie_id` = m.`movie_id` ORDER BY u.`user_id`;";
-                $data = mysqli_query($con, $sql);
-                if (!$data) echo "query failed";
-                if (mysqli_num_rows($data) > 0) {
-                ?>
-                    <div class="table-responsive-md" style="height: 570px; overflow: auto;">
-                        <table class="table table-hover table-dark table-striped" style="min-width: 600px;">
-                            <thead class="sticky-top">
-                                <tr>
-                                    <th scope="col" width="7%">User ID</th>
-                                    <th scope="col" width="15%">User Name</th>
-                                    <th scope="col" width="1%">Film</th>
-                                    <th scope="col" width="15%"></th>
-                                    <th scope="col" width="25%">Review</th>
-                                    <th scope="col" width="10%">Date</th>
-                                    <th scope="col" width="5%">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                <?php   $con = $GLOBALS['con'];
+                            $sql = "SELECT * FROM `diary` as d, `user` as u, `movies` as m WHERE d.`user_id` = u.`user_id` AND `m`.movie_id = d.`movie_id`  ORDER BY u.`user_id`;";
+                            $data = mysqli_query($con, $sql);
+                            if(!$data ) echo "query failed";
+                            if(mysqli_num_rows($data) > 0){
+                                ?>
+                <div class="table-responsive-md" style="height: 570px; overflow: auto;">
+                    <table class="table table-hover table-dark table-striped" style="min-width: 600px;">
+                        <thead class="sticky-top">
+                            <tr>
+                                <th scope="col" width="10%">User ID</th>
+                                <th scope="col" width="10%">Movie ID</th>
+                                <th scope="col" width="15%">Name</th>
+                                <th scope="col" width="10%">Rating</th>
+                                <th scope="col" width="25%">Review</th>
+                                <th scope="col" width="15%">Gender</th>
+                                <th scope="col" width="15%">Date</th>
+                                <th scope="col" width="5%">Actions</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
                             <?php
 
                             while ($row = mysqli_fetch_assoc($data)) {
                                 echo <<<query
                                     <tr>
                                     <td>$row[user_id]</td>
+                                    <td>$row[movie_id]</td>
                                     <td>$row[name]</td>
                                     <td><img src="{$row['poster']}" alt="Poster" style="width: 50px; height: auto;"></td>
                                     <td>$row[title]</td>
@@ -142,16 +148,17 @@ $totalBan = $totalBanRow['total_banned'];
                         <div class="modal-header">
                             <h4 id="staticBackdropLabel" style="color: black;">Do you want to delete diary entry from the database?</h4>
                         </div>
-                        <form id="review_form" method="POST" action="delete_review.php">
-
-                            <input type="hidden" id="delete_review" name="deleteReview">
-
-                            <div class="modal-footer">
-
-                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" name="deleteData" class="btn btn-primary">Confirm</button>
-                            </div>
-                        </form>
+                            <form id="review_form" method="POST" action="delete_review.php">
+                            
+                                <input type="hidden" id="deleteReview" name="deleteReview">
+                                <input type="hidden" id="delete_review" name="delete_review">
+                                
+                                <div class="modal-footer">
+                                
+                                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" name="deleteData" class="btn btn-primary">Confirm</button>
+                                </div>
+                            </form>
                         <!-- here i need to use php to fetch the comments using post id -->
                     </div>
                 </div>
@@ -169,8 +176,9 @@ $totalBan = $totalBanRow['total_banned'];
                     var data = $tr.children("td").map(function() {
                         return $(this).text();
                     }).get();
-                    console.log(data);
-
+                    console.log(data[1]);
+            console.log(data[0]);
+            $('#deleteReview').val(data[1]);
                     $('#delete_review').val(data[0]);
                 });
             });
