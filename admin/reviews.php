@@ -29,7 +29,7 @@ $totalBan = $totalBanRow['total_banned'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>Reviews</title>
     <style>
         body {
             color: #F4CE14;
@@ -74,10 +74,10 @@ $totalBan = $totalBanRow['total_banned'];
                 <a class="nav-link outfit-regular fs-6 fw-bold" href="movies.php">Movies</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active outfit-regular fs-6 fw-bold" href="users.php">Users</a>
+                <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
+                <a class="nav-link active outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
             </li>
         </ul>
     </div>
@@ -86,7 +86,7 @@ $totalBan = $totalBanRow['total_banned'];
         <div class="row">
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="oswald-regular fw-bold fs-2">Users</h3>
+                    <h3 class="oswald-regular fw-bold fs-2">Reviews</h3>
                 </div>
                 <?php   $con = $GLOBALS['con'];
                             $sql = "SELECT * FROM `diary` as d, `user` as u WHERE d.`user_id` = u.`user_id` ORDER BY u.`user_id`;";
@@ -98,7 +98,8 @@ $totalBan = $totalBanRow['total_banned'];
                     <table class="table table-hover table-dark table-striped" style="min-width: 600px;">
                         <thead class="sticky-top">
                             <tr>
-                                <th scope="col" width="10%">ID</th>
+                                <th scope="col" width="10%">User ID</th>
+                                <th scope="col" width="10%">Movie ID</th>
                                 <th scope="col" width="15%">Name</th>
                                 <th scope="col" width="10%">Rating</th>
                                 <th scope="col" width="25%">Review</th>
@@ -118,6 +119,7 @@ $totalBan = $totalBanRow['total_banned'];
                                 echo <<<query
                                     <tr>
                                     <td>$row[user_id]</td>
+                                    <td>$row[movie_id]</td>
                                     <td>$row[name]</td>
                                     <td>$row[rating]</td>
                                     <td>$row[review]</td>
@@ -150,7 +152,8 @@ $totalBan = $totalBanRow['total_banned'];
                         </div>
                             <form id="review_form" method="POST" action="delete_review.php">
                             
-                                <input type="hidden" id="delete_review" name="deleteReview">
+                                <input type="hidden" id="deleteReview" name="deleteReview">
+                                <input type="hidden" id="delete_review" name="delete_review">
                                 
                                 <div class="modal-footer">
                                 
@@ -176,8 +179,9 @@ $totalBan = $totalBanRow['total_banned'];
             var data = $tr.children("td").map(function(){
                 return $(this).text();
             }).get();
-            console.log(data);
-
+            console.log(data[1]);
+            console.log(data[0]);
+            $('#deleteReview').val(data[1]);
             $('#delete_review').val(data[0]);
         });
     });

@@ -57,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             font-size: 0.9rem;
             color: #000;
         }
+        
     </style>
 
 </head>
@@ -93,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                     <h3 class="oswald-regular fw-bold fs-2">Users</h3>
                 </div>
                 <div class="table-responsive-md" style="height: 570px; overflow: auto;">
-                    <table class="table table-hover table-dark table-striped" style="min-width: 600px;">
+                    <table class="table table-hover table-dark table-striped " style="min-width: 600px;">
                         <thead class="sticky-top">
                             <tr>
                                 <th scope="col" width="10%">ID</th>
@@ -153,11 +154,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
             $('.banbtn').change( 'click', function(){
                 console.log('function ready');
                 console.log(document.getElementById('bann').checked);
-                setTimeout(function() {
-                    window.location.reload(); // Reload the page after a few seconds
-                }, 1000); 
               
-
                   
       
             var isBanned = !($(this).data('banned'));
