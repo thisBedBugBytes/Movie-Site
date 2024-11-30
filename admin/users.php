@@ -120,7 +120,7 @@ $totalBan = $totalBanRow['total_banned'];
                                     <td>$row[dob]</td>
                                     <td>$row[gender]</td>
                                     <td>
-                                       <input type="checkbox" class="banbtn" id="bann" name="banBtn" data-user-id="{$row['user_id']}" data-banned="{$row['Banned'] }"  $check data-toggle="toggle" data-onstyle="outline-warning" data-offstyle="outline-danger" data-on=$on data-off=$off>
+                                       <input type="checkbox" class="banbtn" id="bann" name="banBtn" data-user-id="{$row['user_id']}" data-banned="{$row['Banned'] }"  $check data-toggle="toggle" data-onstyle="outline-danger" data-offstyle="outline-warning" data-on=$on data-off=$off>
                                      
                                        </tr>
                                     
