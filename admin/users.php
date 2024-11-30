@@ -148,23 +148,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         
         $(document).ready(function(){
             console.log('Document ready');
-            let isProgrammaticChange = true;
+            
 
-            $('.banbtn').change( function(){
+            $('.banbtn').change( 'click', function(){
                 console.log('function ready');
                 console.log(document.getElementById('bann').checked);
                 setTimeout(function() {
                     window.location.reload(); // Reload the page after a few seconds
                 }, 1000); 
-                if (isProgrammaticChange) {
-                        return;
-                    }
+              
 
-                    if (document.getElementById('bann').checked) {
-                            isProgrammaticChange = true; 
-                            $(this).bootstrapToggle('toggle');
-                            isProgrammaticChange = false;
-                        }
+                  
       
             var isBanned = !($(this).data('banned'));
             console.log(isBanned);
