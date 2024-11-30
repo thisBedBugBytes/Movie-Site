@@ -95,6 +95,9 @@ if (isset($_POST['done'])) {
             <li class="nav-item">
                 <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
+            </li>
         </ul>
     </div>
 
@@ -132,7 +135,7 @@ if (isset($_POST['done'])) {
 
                             while ($row = mysqli_fetch_assoc($data)) {
                                 $description = htmlspecialchars($row['description']);
-                                echo $row['movie_id'];
+                                
                                 echo <<<query
                                     <tr>
                                     <td>$row[movie_id]</td>
@@ -162,10 +165,10 @@ if (isset($_POST['done'])) {
                                         </td>
                                         <td> 
                                              <button type="button" class="btn btn-danger deletebtn">Delete</button>
-                                        
+                                         </td>
                                             </div>
                                    
-                                    </td>
+                                   
                                     </tr>
                                    query;
                             }

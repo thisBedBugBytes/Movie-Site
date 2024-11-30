@@ -20,10 +20,7 @@ $totalBanResult = $con->query($totalBanQuery);
 $totalBanRow = mysqli_fetch_assoc($totalBanResult);
 $totalBan = $totalBanRow['total_banned'];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    header("Refresh: 3;"); // Refresh the page after 3 seconds
-    exit(); 
-}
+
 
 ?>
 <!DOCTYPE html>
@@ -32,7 +29,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>Users</title>
     <style>
         body {
@@ -97,38 +93,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                         <thead class="sticky-top">
                             <tr>
                                 <th scope="col" width="10%">ID</th>
-                                <th scope="col" width="12%">Name</th>
-                                <th scope="col" width="10%">Contact</th>
-                                <th scope="col" width="13%">Email</th>
-                                <th scope="col" width="5%">Password</th>
-                                <th scope="col" width="10%">Date of Birth</th>
-                                <th scope="col" width="10%">Gender</th>
-                                <th scope="col" width="10%">Status</th>
+                                <th scope="col" width="15%">Name</th>
+                                <th scope="col" width="10%">Rating</th>
+                                <th scope="col" width="25%">Review</th>
+                                <th scope="col" width="15%">Gender</th>
+                                <th scope="col" width="15%">Date</th>
+                                <th scope="col" width="5%">      </th>
+                                <th scope="col" width="5%">Actions</th>
+                                
                             </tr>
                         </thead>
                         <tbody>
                             <?php
                             $con = $GLOBALS['con'];
-                            $sql = "SELECT * FROM `user` ORDER BY user_id;";
+                            $sql = "SELECT * FROM `diary` as d, `user` as u WHERE d.`user_id` = u.`user_id` ORDER BY u.`user_id`;";
                             $data = mysqli_query($con, $sql);
                             if(!$data ) echo "quesry failed";
                             while ($row = mysqli_fetch_assoc($data)) {
-                                $check = ($row['Banned'] == 1)? "checked" : "";
-                                $on = "Unban";
-                                $off = "Ban";
+                               
                                 echo $row['user_id'];
                                 echo <<<query
                                     <tr>
                                     <td>$row[user_id]</td>
                                     <td>$row[name]</td>
-                                    <td>$row[phone_number]</td>
-                                    <td>$row[email]</td>
-                                    <td>$row[password]</td>
-                                    <td>$row[dob]</td>
+                                    <td>$row[rating]</td>
+                                    <td>$row[review]</td>
                                     <td>$row[gender]</td>
+                                    <td>$row[log_time]</td>
                                     <td>
-                                       <input type="checkbox" class="banbtn" id="bann" name="banBtn" data-user-id="{$row['user_id']}" data-banned="{$row['Banned'] }"  $check data-toggle="toggle" data-onstyle="outline-danger" data-offstyle="outline-warning" data-on=$on data-off=$off>
-                                    
+                                       <td> 
+                                             <button type="button" class="btn btn-danger deleteBtn">Delete</button>
+                                        </td>
                                        </tr>
                                     
                                    query;
@@ -140,58 +135,46 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
                 </div>
                
             </div>
+            <div class="modal fade" id="delete-review" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 id="staticBackdropLabel" style="color: black;">Do you want to delete diary entry from the database?</h4>
+                        </div>
+                            <form id="review_form" method="POST" action="delete_review.php">
+                            
+                                <input type="hidden" id="delete_review" name="deleteReview">
+                                
+                                <div class="modal-footer">
+                                
+                                    <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" name="deleteData" class="btn btn-primary">Confirm</button>
+                                </div>
+                            </form>
+                        <!-- here i need to use php to fetch the comments using post id -->
+                        </div>
+                </div>
         </div>
+
     </div>
 
     <?php include('inc/scripts.php'); ?>
     <script>
         
         $(document).ready(function(){
-            console.log('Document ready');
-            let isProgrammaticChange = true;
+            $('.deleteBtn').on('click', function(){
+            $('#delete-review').modal('show');
+            
+            $tr = $(this).closest('tr');
+            var data = $tr.children("td").map(function(){
+                return $(this).text();
+            }).get();
+            console.log(data);
 
-            $('.banbtn').change( function(){
-                console.log('function ready');
-                console.log(document.getElementById('bann').checked);
-                setTimeout(function() {
-                    window.location.reload(); // Reload the page after a few seconds
-                }, 1000); 
-                if (isProgrammaticChange) {
-                        return;
-                    }
-
-                    if (document.getElementById('bann').checked) {
-                            isProgrammaticChange = true; 
-                            $(this).bootstrapToggle('toggle');
-                            isProgrammaticChange = false;
-                        }
-      
-            var isBanned = !($(this).data('banned'));
-            console.log(isBanned);
-            var banid = $(this).data('user-id');
-            var banbtn= (isBanned)? 1 : 0;
-
-            console.log(banid);
-            console.log(isBanned);
-            $.ajax({
-                type:"POST",
-                url: "ban_user.php",
-                data: {banbtn: banbtn, banId: banid },
-                success: function(data){
-                    console.log(data);
-                   
-                    
-                }
-            });
-       
-        
+            $('#delete_review').val(data[0]);
         });
-       
     });
-   
- 
     </script>
-   
 </body>
 
 </html>

@@ -73,6 +73,9 @@ $totalBan = $totalBanRow['total_banned'];
             <li class="nav-item">
                 <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
+            </li>
         </ul>
     </div>
 
