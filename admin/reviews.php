@@ -95,7 +95,7 @@ $totalBan = $totalBanRow['total_banned'];
                     <h3 class="oswald-regular fw-bold fs-2">Reviews</h3>
                 </div>
                 <?php   $con = $GLOBALS['con'];
-                            $sql = "SELECT * FROM `diary` as d, `user` as u WHERE d.`user_id` = u.`user_id` ORDER BY u.`user_id`;";
+                            $sql = "SELECT * FROM `diary` as d, `user` as u, `movies` as m WHERE d.`user_id` = u.`user_id` AND `m`.movie_id = d.`movie_id`  ORDER BY u.`user_id`;";
                             $data = mysqli_query($con, $sql);
                             if(!$data ) echo "query failed";
                             if(mysqli_num_rows($data) > 0){
@@ -111,7 +111,6 @@ $totalBan = $totalBanRow['total_banned'];
                                 <th scope="col" width="25%">Review</th>
                                 <th scope="col" width="15%">Gender</th>
                                 <th scope="col" width="15%">Date</th>
-                                <th scope="col" width="5%">      </th>
                                 <th scope="col" width="5%">Actions</th>
                                 
                             </tr>
