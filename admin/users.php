@@ -208,9 +208,9 @@ $totalBan = $totalBanRow['total_banned'];
                     }
 
                     if (document.getElementById('bann').checked) {
-                            isProgrammaticChange = true; // Set flag before programmatic change
-                            $('.banbtn').bootstrapToggle('toggle');
-                            isProgrammaticChange = false; // Reset flag after change
+                            isProgrammaticChange = true; 
+                            $(this).bootstrapToggle('toggle');
+                            isProgrammaticChange = false;
                         }
       
             var isBanned = !($(this).data('banned'));
