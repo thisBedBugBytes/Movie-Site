@@ -56,13 +56,13 @@ $totalBan = $totalBanRow['total_banned'];
 </head>
 
 <body style="color:#F4CE14">
-<div class="container-fluid bg-dark text-light p-3 d-flex align-items-center justify-content-between sticky-top">
-    <div class="d-flex align-items-center">
-        <a class="mb-0 oswald-regular mb-1 fw-bold fs-1" href="../index.php" style="color: white; text-decoration: none;">CineBox</a>
-        <a href="logout.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none oswald-regular my-3 ms-2">Log Out</a>
+    <div class="container-fluid bg-dark text-light p-3 d-flex align-items-center justify-content-between sticky-top">
+        <div class="d-flex align-items-center">
+            <a class="mb-0 oswald-regular mb-1 fw-bold fs-1" href="../index.php" style="color: white; text-decoration: none;">CineBox</a>
+            <a href="logout.php" class="btn btn-sm btn-outline-light outfit-regular rounded-0 fw-bold shadow-none oswald-regular my-3 ms-2">Log Out</a>
+        </div>
+
     </div>
-    
-</div>
 
 
     <div class="col-lg-2 bg-light border-top border-3 border-secondary" id="dashboard-menu" style="min-height: 100vh;">
@@ -122,23 +122,6 @@ $totalBan = $totalBanRow['total_banned'];
                 </div>
             </div>
             <br>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header outfit-regular fw-bold">
-                            Recent Activity
-                        </div>
-                        <div class="card-body">
-                            <ul class="list-group">
-                                <li class="list-group-item outfit-regular fw-bold" style="color: #000">User John Doe registered.</li>
-                                <li class="list-group-item outfit-regular fw-bold" style="color: #000">Movie "Inception" added.</li>
-                                <li class="list-group-item outfit-regular fw-bold" style="color: #000">User Jane Smith updated profile.</li>
-                                <li class="list-group-item outfit-regular fw-bold" style="color: #000">Movie "The Matrix" removed.</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
     </div>
