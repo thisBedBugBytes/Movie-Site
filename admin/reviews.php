@@ -29,7 +29,7 @@ $totalBan = $totalBanRow['total_banned'];
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+    <title>Reviews</title>
     <style>
         body {
             color: #F4CE14;
@@ -74,10 +74,10 @@ $totalBan = $totalBanRow['total_banned'];
                 <a class="nav-link outfit-regular fs-6 fw-bold" href="movies.php">Movies</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active outfit-regular fs-6 fw-bold" href="users.php">Users</a>
+                <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
+                <a class="nav-link active outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
             </li>
         </ul>
     </div>
@@ -86,10 +86,10 @@ $totalBan = $totalBanRow['total_banned'];
         <div class="row">
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="oswald-regular fw-bold fs-2">Users</h3>
+                    <h3 class="oswald-regular fw-bold fs-2">Reviews</h3>
                 </div>
                 <?php   $con = $GLOBALS['con'];
-                            $sql = "SELECT * FROM `diary` as d, `user` as u WHERE d.`user_id` = u.`user_id` ORDER BY u.`user_id`;";
+                            $sql = "SELECT * FROM `diary` as d, `user` as u, movies as m WHERE d.`user_id` = u.`user_id` and d.`movie_id` = m.`movie_id` ORDER BY u.`user_id`;";
                             $data = mysqli_query($con, $sql);
                             if(!$data ) echo "query failed";
                             if(mysqli_num_rows($data) > 0){
@@ -98,13 +98,13 @@ $totalBan = $totalBanRow['total_banned'];
                     <table class="table table-hover table-dark table-striped" style="min-width: 600px;">
                         <thead class="sticky-top">
                             <tr>
-                                <th scope="col" width="10%">ID</th>
-                                <th scope="col" width="15%">Name</th>
-                                <th scope="col" width="10%">Rating</th>
+                                <th scope="col" width="7%">User ID</th>
+                                <th scope="col" width="15%">User Name</th>
+                                <th scope="col" width="1%">Film</th>
+                                <th scope="col" width="15%"></th>
                                 <th scope="col" width="25%">Review</th>
-                                <th scope="col" width="15%">Gender</th>
-                                <th scope="col" width="15%">Date</th>
-                                <th scope="col" width="5%">      </th>
+                                <th scope="col" width="10%">Date</th>
+                                
                                 <th scope="col" width="5%">Actions</th>
                                 
                             </tr>
@@ -119,11 +119,11 @@ $totalBan = $totalBanRow['total_banned'];
                                     <tr>
                                     <td>$row[user_id]</td>
                                     <td>$row[name]</td>
-                                    <td>$row[rating]</td>
+                                    <td><img src="{$row['poster']}" alt="Poster" style="width: 50px; height: auto;"></td>
+                                    <td>$row[title]</td>
                                     <td>$row[review]</td>
-                                    <td>$row[gender]</td>
                                     <td>$row[log_time]</td>
-                                    <td>
+                                    
                                        <td> 
                                              <button type="button" class="btn btn-danger deleteBtn">Delete</button>
                                         </td>
