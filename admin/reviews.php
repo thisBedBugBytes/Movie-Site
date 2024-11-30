@@ -78,10 +78,8 @@ $totalBan = $totalBanRow['total_banned'];
             </li>
             <li class="nav-item">
                 <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
-                <a class="nav-link outfit-regular fs-6 fw-bold" href="users.php">Users</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
                 <a class="nav-link active outfit-regular fs-6 fw-bold" href="reviews.php">Reviews</a>
             </li>
         </ul>
@@ -91,7 +89,6 @@ $totalBan = $totalBanRow['total_banned'];
         <div class="row">
             <div class="col-lg-10 ms-auto p-4 overflow-hidden">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 class="oswald-regular fw-bold fs-2">Reviews</h3>
                     <h3 class="oswald-regular fw-bold fs-2">Reviews</h3>
                 </div>
                 <?php   $con = $GLOBALS['con'];
@@ -104,13 +101,13 @@ $totalBan = $totalBanRow['total_banned'];
                     <table class="table table-hover table-dark table-striped" style="min-width: 600px;">
                         <thead class="sticky-top">
                             <tr>
-                                <th scope="col" width="10%">User ID</th>
-                                <th scope="col" width="10%">Movie ID</th>
-                                <th scope="col" width="15%">Name</th>
-                                <th scope="col" width="10%">Rating</th>
-                                <th scope="col" width="25%">Review</th>
-                                <th scope="col" width="15%">Gender</th>
-                                <th scope="col" width="15%">Date</th>
+                                <th scope="col" width="7%">User ID</th>
+                                <th scope="col" width="7%">Movie ID</th>
+                                <th scope="col" width="15%">Username</th>
+                                <th scope="col" width="1%">Film</th>
+                                <th scope="col" width="15%">    </th>
+                                <th scope="col" width="20%">Review</th>
+                                <th scope="col" width="10%">Date</th>
                                 <th scope="col" width="5%">Actions</th>
                                 
                             </tr>
@@ -123,7 +120,7 @@ $totalBan = $totalBanRow['total_banned'];
                                     <tr>
                                     <td>$row[user_id]</td>
                                     <td>$row[movie_id]</td>
-                                    <td>$row[name]</td>
+                                    <td>$row[name]</td>     
                                     <td><img src="{$row['poster']}" alt="Poster" style="width: 50px; height: auto;"></td>
                                     <td>$row[title]</td>
                                     <td>$row[review]</td>
