@@ -101,12 +101,14 @@ $totalBan = $totalBanRow['total_banned'];
                         </thead>
                         <tbody>
                             <?php
+                            $con = $GLOBALS['con'];
                             $sql = "SELECT * FROM `user` ORDER BY user_id;";
                             $data = mysqli_query($con, $sql);
+                            if(!$data ) echo "quesry failed";
                             while ($row = mysqli_fetch_assoc($data)) {
                                 $check = ($row['Banned'] == 1)? "checked" : "";
-                                $on = ($row['Banned'] == 1)? "Unban" : "Ban";
-                                $off = ($row['Banned'] == 0)? "Ban" : "Unban";
+                                $on = "Unban";
+                                $off = "Ban";
                                 echo $row['user_id'];
                                 echo <<<query
                                     <tr>
@@ -118,7 +120,7 @@ $totalBan = $totalBanRow['total_banned'];
                                     <td>$row[dob]</td>
                                     <td>$row[gender]</td>
                                     <td>
-                                       <input type="checkbox" class="banbtn" id="bann" name="banbtn" data-user-id="{$row['user_id']}" data-banned="{$row['Banned'] }"  $check data-toggle="toggle" data-onstyle="outline-warning" data-offstyle="outline-danger" data-on=$on data-off=$off>
+                                       <input type="checkbox" class="banbtn" id="bann" name="banBtn" data-user-id="{$row['user_id']}" data-banned="{$row['Banned'] }"  $check data-toggle="toggle" data-onstyle="outline-warning" data-offstyle="outline-danger" data-on=$on data-off=$off>
                                      
                                        </tr>
                                     
@@ -194,13 +196,25 @@ $totalBan = $totalBanRow['total_banned'];
     <script>
         
         $(document).ready(function(){
+            console.log('Document ready');
+            let isProgrammaticChange = false;
+
             $('.banbtn').change( function(){
-            if(document.getElementById('bann').checked){
-                $('.banbtn').bootstrapToggle('toggle');
-            
-           
-           
+                console.log('function ready');
+                console.log(document.getElementById('bann').checked);
+                
+                if (isProgrammaticChange) {
+                        return;
+                    }
+
+                    if (document.getElementById('bann').checked) {
+                            isProgrammaticChange = true; // Set flag before programmatic change
+                            $('.banbtn').bootstrapToggle('toggle');
+                            isProgrammaticChange = false; // Reset flag after change
+                        }
+      
             var isBanned = !($(this).data('banned'));
+            console.log(isBanned);
             var banid = $(this).data('user-id');
             var banbtn= (isBanned)? 1 : 0;
 
@@ -214,7 +228,7 @@ $totalBan = $totalBanRow['total_banned'];
                     console.log(data);
                 }
             });
-        }
+        
         });
         
     });

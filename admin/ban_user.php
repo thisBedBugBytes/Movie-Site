@@ -15,7 +15,7 @@ if(isset($_POST['banbtn'])){
    
     $result = mysqli_query($con, $query);
     if($result){
-        echo '<script>alert("it worked");</script>;';
+        echo '<script>alert("User banned");</script>;';
     }
 }
 
